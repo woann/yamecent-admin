@@ -3,7 +3,7 @@
 
 ------
 
-yamecent-admin是一款基于laravel框架进行疯转的后台管理系统,其中包含：
+yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
 
 > * rbac权限管理模块
 > * 完整的ui组件(外部引入)
