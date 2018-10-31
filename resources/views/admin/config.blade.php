@@ -19,12 +19,26 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">配置列表</h4>
-                            <p class="card-description">
+                            <div class="col-lg-9" style="float: left;padding: 0;">
                                 <button type="button" class="btn btn-sm btn-gradient-success btn-icon-text" onclick="add()">
                                     <i class="mdi mdi-plus btn-icon-prepend"></i>
                                     添加配置
                                 </button>
-                            </p>
+                            </div>
+                            <div class="col-lg-3" style="float: right">
+                                <form action="">
+                                    <div class="form-group" >
+                                        <div class="input-group col-xs-3">
+                                            <input type="text" name="wd" class="form-control file-upload-info" placeholder="请输入关键字" value="{{ $wd }}">
+                                            <span class="input-group-append">
+                                                <button class=" btn btn-sm btn-gradient-primary" type="submit"><i class="mdi mdi-account-search btn-icon-prepend"></i>
+                                                    搜索
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -77,7 +91,7 @@
                                 </tbody>
                             </table>
                             <div class="box-footer clearfix">
-                                总共 <b>{{ $list->total()  }}</b> 条,分为<b>{{ $list->lastPage() }}</b>页
+                                总共 <b>{{ $list->appends(["wd"=>$wd])->total()  }}</b> 条,分为<b>{{ $list->lastPage() }}</b>页
                                 {!! $list->links() !!}
                             </div>
                         </div>

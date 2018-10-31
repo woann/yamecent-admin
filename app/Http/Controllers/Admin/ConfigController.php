@@ -14,8 +14,9 @@ class ConfigController extends Controller
      */
     public function configList(Request $request)
     {
-        $list = DB::table('admin_config')->paginate(10);
-        return view('admin.config',['list'=>$list]);
+        $wd = $request->input('wd');
+        $list = DB::table('admin_config')->where("config_key","like","%{$wd}%")->orWhere("name","like","%{$wd}%")->paginate(10);
+        return view('admin.config',['list'=>$list,"wd"=>$wd]);
     }
 
     /**
