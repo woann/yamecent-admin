@@ -18,8 +18,6 @@ Route::group(['middleware'=>'rbac'], function () use($router) {
     $router->get('/console','Admin\IndexController@console');
     //403无访问权限
     $router->get('/403','Admin\IndexController@noPermission');
-    //设置视频回调url
-    $router->any('/set_callback_url', 'Admin\VideoController@setCallbackUrl');
     $router->group(['prefix' => 'admin'], function () use($router) {
         //菜单管理
         $router->get('/menu/list', 'Admin\AdministratorController@menuList');
@@ -32,15 +30,15 @@ Route::group(['middleware'=>'rbac'], function () use($router) {
         $router->any('/role/update/{id}', 'Admin\AdministratorController@roleUpdate');
         $router->post('/role/del/{id}', 'Admin\AdministratorController@roleDel');
         //权限管理
-        $router->get('/permission/list','Admin\DemoController@permissionList');
-        $router->any('/permission/add','Admin\DemoController@permissionAdd');
-        $router->any('/permission/update/{id}','Admin\DemoController@permissionUpdate');
-        $router->post('/permission/del/{id}','Admin\DemoController@permissionDel');
+        $router->get('/permission/list','Admin\AdministratorController@permissionList');
+        $router->any('/permission/add','Admin\AdministratorController@permissionAdd');
+        $router->any('/permission/update/{id}','Admin\AdministratorController@permissionUpdate');
+        $router->post('/permission/del/{id}','Admin\AdministratorController@permissionDel');
         //管理员管理
-        $router->get('/administrator/list','Admin\DemoController@administratorList');
-        $router->any('/administrator/add','Admin\DemoController@administratorAdd');
-        $router->any('/administrator/update/{id}','Admin\DemoController@administratorUpdate');
-        $router->post('/administrator/del/{id}','Admin\DemoController@administratorDel');
+        $router->get('/administrator/list','Admin\AdministratorController@administratorList');
+        $router->any('/administrator/add','Admin\AdministratorController@administratorAdd');
+        $router->any('/administrator/update/{id}','Admin\AdministratorController@administratorUpdate');
+        $router->post('/administrator/del/{id}','Admin\AdministratorController@administratorDel');
         //配置管理
         $router->get('/config/list','Admin\ConfigController@configList');
         $router->any('/config/add','Admin\ConfigController@configAdd');
@@ -51,13 +49,12 @@ Route::group(['middleware'=>'rbac'], function () use($router) {
         $router->post('/wangeditor/upload','Admin\IndexController@wangeditorUpload');
     });
     //修改个人信息
-    $router->any('/edit/info/{id}','Admin\DemoController@editInfo');
+    $router->any('/edit/info/{id}','Admin\AdministratorController@editInfo');
     //退出登录
-    $router->get('/logout','Admin\DemoController@logout');
+    $router->get('/logout','Admin\AdministratorController@logout');
 
 });
-
-$router->any('/login','Admin\DemoController@login');
+$router->any('/login','Admin\AdministratorController@login');
 $router->get('/icon', function(){
     return view('admin.icon');
 });
