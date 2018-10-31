@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-10-31 10:54:53
+-- Generation Time: 2018-10-31 11:21:58
 -- 服务器版本： 5.7.18-log
 -- PHP Version: 7.1.7
 
@@ -37,6 +37,13 @@ CREATE TABLE `v_admin_config` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `v_admin_config`
+--
+
+INSERT INTO `v_admin_config` (`id`, `name`, `config_key`, `config_value`, `type`, `created_at`, `updated_at`) VALUES
+(7, '后台管理LOGO', 'admin_logo', '/uploads/config/20181031/5bd91d0bcfd6f.png', 'image', '2018-10-31 03:03:52', '2018-10-31 03:03:52');
 
 -- --------------------------------------------------------
 
@@ -287,7 +294,7 @@ ALTER TABLE `v_config`
 -- 使用表AUTO_INCREMENT `v_admin_config`
 --
 ALTER TABLE `v_admin_config`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- 使用表AUTO_INCREMENT `v_admin_menu`
 --
