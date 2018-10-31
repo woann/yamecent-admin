@@ -19,7 +19,7 @@ Route::group(['middleware'=>'rbac'], function () use($router) {
     //403无访问权限
     $router->get('/403','Admin\IndexController@noPermission');
     //设置视频回调url
-    $router->post('/set_callback_url', 'Admin\VideoController@setCallbackUrl');
+    $router->any('/set_callback_url', 'Admin\VideoController@setCallbackUrl');
     $router->group(['prefix' => 'admin'], function () use($router) {
         //菜单管理
         $router->get('/menu/list', 'Admin\AdministratorController@menuList');
@@ -41,8 +41,14 @@ Route::group(['middleware'=>'rbac'], function () use($router) {
         $router->any('/administrator/add','Admin\DemoController@administratorAdd');
         $router->any('/administrator/update/{id}','Admin\DemoController@administratorUpdate');
         $router->post('/administrator/del/{id}','Admin\DemoController@administratorDel');
+        //配置管理
+        $router->get('/config/list','Admin\ConfigController@configList');
+        $router->any('/config/add','Admin\ConfigController@configAdd');
+        $router->any('/config/update/{id}','Admin\ConfigController@configUpdate');
+        $router->post('/config/del/{id}','Admin\ConfigController@configDel');
         //图片上传
         $router->post('/upload','Admin\IndexController@upload');
+        $router->post('/wangeditor/upload','Admin\IndexController@wangeditorUpload');
     });
     //修改个人信息
     $router->any('/edit/info/{id}','Admin\DemoController@editInfo');

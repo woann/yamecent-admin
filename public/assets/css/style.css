@@ -20946,8 +20946,20 @@ dl li {
 }
 .img-yl{
   display: none;
+    margin-top: 5px;
 }
 .img-yl img{
   width: 200px;
+}
+.config-img{
+  width:80px !important;
+  height:auto !important;
+  border-radius: 0px !important;
+}
+.box-footer{
+  margin-top: 20px;
+}
+.box-footer ul{
+  float: right;
 }
 /*# sourceMappingURL=maps/style.css.map */

@@ -164,7 +164,14 @@
             <i class="mdi mdi-home menu-icon"></i>
           </a>
         </li>
-
+        @if(session('admin')->id == 1 )
+        <li class="nav-item">
+          <a class="nav-link" target="main" href="/admin/config/list">
+            <span class="menu-title">配置项</span>
+            <i class="mdi mdi-settings-box menu-icon"></i>
+          </a>
+        </li>
+          @endif
         @foreach($menu as $k=>$v)
           @if($v->has_child)
                   <li class="nav-item">
@@ -191,8 +198,8 @@
           @endif
 
         @endforeach
-
-        <li class="nav-item">
+          @if(session('admin')->id == 1 )
+          <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#system-pages" aria-expanded="false" aria-controls="general-pages">
             <span class="menu-title">系统设置</span>
             <i class="menu-arrow"></i>
@@ -207,6 +214,7 @@
             </ul>
           </div>
         </li>
+          @endif
 
         {{--<li class="nav-item sidebar-actions">--}}
         {{--<span class="nav-link">--}}

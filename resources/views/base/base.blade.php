@@ -10,6 +10,7 @@
   <!-- plugins:css -->
   <link rel="stylesheet" href="/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" type="text/css" href="/assets/wangEditor/dist/css/wangEditor.min.css">
   <!-- endinject -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/assets/css/style.css">

@@ -93,3 +93,12 @@ function checkForm() {
     }
     return true;
 }
+function cutStr(len){
+    var obj=$('.len');
+    for (i=0;i<obj.length;i++){
+        var a = obj[i].innerHTML.length;
+        if(a > len){
+            obj[i].innerHTML=obj[i].innerHTML.substring(0,len)+'…';
+        }
+    }
+}

@@ -182,7 +182,6 @@ class DemoController extends Controller
             }else{
                 $user_role_id = 0;
             }
-
             return view('admin.administrator_update',['res'=>$res,'role'=>$role,'role_id'=>$user_role_id]);
         }
     }

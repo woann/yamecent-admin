@@ -80,6 +80,36 @@ class IndexController extends Controller
     }
 
     /**
+     * @Desc: 富文本上传图片
+     * @Author: woann <304550409@qq.com>
+     * @param Request $request
+     */
+    public function wangeditorUpload(Request $request)
+    {
+        $file = $request->file('wangEditorH5File');
+        if($file){
+            if($file->isValid()) {
+                // 获取文件相关信息
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                // 上传文件
+                $filename = date('Ymd') . '/' . uniqid() . '.' . $ext;
+                // 使用我们新建的uploads本地存储空间（目录）
+                $bool = Storage::disk('admin')->put('/wangeditor/'.$filename, file_get_contents($realPath));
+                if($bool){
+                    echo asset('/uploads/wangeditor/'.$filename);
+                }else{
+                    echo 'error|上传失败';
+                }
+            }else{
+                echo 'error|上传失败';
+            }
+        }else{
+            echo 'error|图片类型不正确';
+        }
+    }
+
+    /**
      * @Desc: 无权限界面
      * @Author: woann <304550409@qq.com>
      * @return \Illuminate\View\View

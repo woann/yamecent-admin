@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-10-30 17:17:05
+-- Generation Time: 2018-10-31 10:54:53
 -- 服务器版本： 5.7.18-log
 -- PHP Version: 7.1.7
 
@@ -19,8 +19,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `video`
+-- Database: `yamecent-admin`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `v_admin_config`
+--
+
+CREATE TABLE `v_admin_config` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `config_key` varchar(255) DEFAULT NULL,
+  `config_value` text,
+  `type` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -44,8 +60,10 @@ CREATE TABLE `v_admin_menu` (
 --
 
 INSERT INTO `v_admin_menu` (`id`, `pid`, `name`, `url`, `icon`, `sort`, `created_at`, `updated_at`) VALUES
-(7, 0, '视频管理', '/admin/video', 'mdi mdi-video', 0, '2018-10-30 08:40:22', '2018-10-30 08:46:23'),
-(8, 7, '视频审核列表', '/admin/video', NULL, 0, '2018-10-30 08:40:49', '2018-10-30 08:46:30');
+(8, 7, '视频审核列表', '/admin/video', NULL, 0, '2018-10-30 08:40:49', '2018-10-30 08:46:30'),
+(9, 7, '回调地址管理', 'set_callback_url', NULL, 0, '2018-10-31 00:48:16', '2018-10-31 01:44:22'),
+(10, 7, '转码模板管理', 'transcoding', 'mdi-autorenew', 0, '2018-10-31 01:01:49', '2018-10-31 01:01:49'),
+(11, 7, '水印模板管理', '/watermark', 'mdi-watermark', 0, '2018-10-31 01:03:11', '2018-10-31 01:03:11');
 
 -- --------------------------------------------------------
 
@@ -67,7 +85,7 @@ CREATE TABLE `v_admin_permission` (
 
 INSERT INTO `v_admin_permission` (`id`, `name`, `route`, `created_at`, `updated_at`) VALUES
 (3, '所有权限', 'admin/menu/list,admin/menu/add,admin/menu/update/{id},admin/menu/del/{id},admin/role/list,admin/permission/list,admin/permission/add,api/set_callback_url,admin/role/add,admin/role/update/{id},admin/role/del/{id},admin/permission/update/{id},admin/permission/del/{id},admin/administrator/list,admin/administrator/add,admin/administrator/update/{id},admin/administrator/del/{id},admin/upload,admin/403,login,set_callback_url,/,console,403,edit/info/{id},logout', '2018-10-30 03:13:20', '2018-10-30 08:18:53'),
-(5, '视频审核员', 'logout,login,edit/info/{id},admin/upload', '2018-10-30 08:45:37', '2018-10-30 08:45:57');
+(5, '视频审核员', 'logout,login,edit/info/{id},admin/upload,/,403,console', '2018-10-30 08:45:37', '2018-10-31 01:07:47');
 
 -- --------------------------------------------------------
 
@@ -108,10 +126,11 @@ CREATE TABLE `v_admin_role_menu` (
 --
 
 INSERT INTO `v_admin_role_menu` (`id`, `role_id`, `menu_id`) VALUES
-(12, 1, 7),
-(13, 3, 7),
 (14, 1, 8),
-(15, 3, 8);
+(15, 3, 8),
+(18, 1, 10),
+(19, 1, 11),
+(21, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -155,9 +174,9 @@ CREATE TABLE `v_admin_user` (
 --
 
 INSERT INTO `v_admin_user` (`id`, `avatar`, `nickname`, `account`, `password`, `clear_password`) VALUES
-(1, '/uploads/avatar/20181030/5bd818d018f6e.jpg', '最牛逼的程序员', 'admin', '$2y$10$U9dRYDhfx74dRzwObHYSjOIwpLPJlLTrAaJYjy4AlmuFXZ/ttpQGG', 'yamecent666'),
-(3, '/uploads/avatar/20181030/5bd8007e0d591.jpg', '吴二狗', 'wqg', '$2y$10$HMqyAwBR2/xeWP2hNcqq3eWCevyeJO83GjuiZgD6wxUoV/k3KvLkW', 'yamecent'),
-(4, '/uploads/avatar/20181030/5bd800afcdf1e.jpg', '徐大王', 'xjj', '$2y$10$9JKUl00rel7pjQpPXlFz0OR1hfTiNN1i3Yz6b/D/O40HuSCHmqusK', 'yamecent');
+(1, '/uploads/avatar/20181031/5bd90252493d1.jpg', '最牛逼的程序员', 'admin', '$2y$10$1TcmSI4IoVBBKSaj1JLCwO2fVS2Yl4Qdp2NN7MRH497cEsRsUjKi6', 'yamecent666'),
+(3, '/uploads/avatar/20181031/5bd9028051930.jpg', '吴二狗', 'wqg', '$2y$10$yO3X6.AnxWfq/wROixwzdOMMpy/dLkk1fUNlQjg4.K66H9NKKtSfe', 'yamecent'),
+(4, '/uploads/avatar/20181031/5bd9026ca5b71.jpg', '徐大王', 'xjj', '$2y$10$n7iDufJKCQU4Ay81okUjN.3IHzViDbSL/f8wewNn0Dix87.mhmOjG', 'yamecent');
 
 -- --------------------------------------------------------
 
@@ -177,12 +196,40 @@ CREATE TABLE `v_admin_user_role` (
 
 INSERT INTO `v_admin_user_role` (`id`, `admin_user_id`, `role_id`) VALUES
 (1, 1, 1),
-(2, 3, 1),
-(3, 4, 2);
+(2, 3, 3),
+(3, 4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `v_config`
+--
+
+CREATE TABLE `v_config` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `key` varchar(255) DEFAULT NULL,
+  `value` text,
+  `type` varchar(255) DEFAULT NULL,
+  `des` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `v_config`
+--
+
+INSERT INTO `v_config` (`id`, `key`, `value`, `type`, `des`) VALUES
+(1, 'upload_callback', 'https://www.baidu.com/', 'string', '视频上传回调地址'),
+(2, 'transcode_callback', 'https://www.baidu.com/', 'string', '视频转码回调地址');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `v_admin_config`
+--
+ALTER TABLE `v_admin_config`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `v_admin_menu`
@@ -227,14 +274,25 @@ ALTER TABLE `v_admin_user_role`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `v_config`
+--
+ALTER TABLE `v_config`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 在导出的表使用AUTO_INCREMENT
 --
 
 --
+-- 使用表AUTO_INCREMENT `v_admin_config`
+--
+ALTER TABLE `v_admin_config`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- 使用表AUTO_INCREMENT `v_admin_menu`
 --
 ALTER TABLE `v_admin_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- 使用表AUTO_INCREMENT `v_admin_permission`
 --
@@ -249,7 +307,7 @@ ALTER TABLE `v_admin_role`
 -- 使用表AUTO_INCREMENT `v_admin_role_menu`
 --
 ALTER TABLE `v_admin_role_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- 使用表AUTO_INCREMENT `v_admin_role_permission`
 --
@@ -264,7 +322,12 @@ ALTER TABLE `v_admin_user`
 -- 使用表AUTO_INCREMENT `v_admin_user_role`
 --
 ALTER TABLE `v_admin_user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- 使用表AUTO_INCREMENT `v_config`
+--
+ALTER TABLE `v_config`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -19,11 +19,14 @@ class Rbac{
             return redirect('/login');
         }
         $session = $request->session()->get('admin');
-
+        if($session->id == 1){
+            return $next($request);
+        }
         //获取当前路由
         $route_current = \Route::current()->uri;
         //获取当前管理员角色
-        $role_id = $session->id;
+        $role = DB::table('admin_user_role')->where("admin_user_id",$session->id)->first();
+        $role_id = $role->id;
         //通过角色获取当前管理员所有权限
         $permission_list = DB::table('admin_role_permission as rp')
             ->leftJoin('admin_permission as p','p.id','=','rp.permission_id')

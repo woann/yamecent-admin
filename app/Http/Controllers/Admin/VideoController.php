@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Utility\Video;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
 
 class VideoController extends Controller
 {
@@ -14,25 +15,48 @@ class VideoController extends Controller
      */
     public function setCallbackUrl(Request $request)
     {
-        $url = $request->input('url');
-        $type = $request->input('type');
-        if(!in_array($type,['upload','transcode'])){
-            return $this->json(500,"param type is miss");
-        }
-        if(!validateURL($url)){
-            return $this->json(500,"url格式不正确");
-        }
-        $param = ["callbackUrl" => $url];
-        if($type == "upload"){
-            $api = "/app/vod/upload/setcallback";
+        if($request->isMethod('post')){
+            $url = $request->input('url');
+            $type = $request->input('type');
+            if(!in_array($type,['upload','transcode'])){
+                return $this->json(500,"param type is miss");
+            }
+            if(!validateURL($url)){
+                return $this->json(500,"url格式不正确");
+            }
+            $param = ["callbackUrl" => $url];
+            if($type == "upload"){
+                $api = "/app/vod/upload/setcallback";
+            }else{
+                $api = "/app/vod/transcode/setcallback";
+            }
+            $res = Video::Request($api,$param);
+            $res = json_decode($res);
+            if(!$res || $res->code != 200){
+                return $this->json(500,"操作失败!");
+            }
+
+            if($type == "upload"){
+                config(['callback.upload' => $url]);
+            }else{
+                config(['callback.transcode' => $url]);
+            }
+            return $this->json(200,"操作成功!");
         }else{
-            $api = "/app/vod/transcode/setcallback";
+            //上传回调
+            $upload = config('callback.upload');
+            //转码回调
+            $transcode = config('callback.transcode');
+            return view('video.callback_url',['upload'=>$upload,'transcode'=>$transcode]);
         }
-        $res = Video::Request($api,$param);
-        $res = json_decode($res);
-        if(!$res || $res->code != 200){
-            return $this->json(500,"操作失败!");
-        }
-        return $this->json(200,"操作成功!");
+
     }
+
+
+
+
+
+
+
+
 }
