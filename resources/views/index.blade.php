@@ -14,6 +14,15 @@
   <link rel="stylesheet" href="/assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/assets/images/favicon.png" />
+  <style>
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+    ::-webkit-scrollbar
+    {
+      width: 0px;
+      height: 0px;
+      background-color: #F5F5F5;
+    }
+  </style>
 </head>
 <body>
 <div class="container-scroller">

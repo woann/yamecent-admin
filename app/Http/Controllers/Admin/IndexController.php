@@ -18,6 +18,7 @@ class IndexController extends Controller
             ->where('rm.role_id',$role_id)
             ->where('m.pid',0)
             ->select('m.*')
+            ->orderBy('m.sort','DESC')
             ->get();
         foreach ($menu_list as $k=>$v){
             $menu_list[$k]->child = DB::table('admin_role_menu as rm')
@@ -25,6 +26,7 @@ class IndexController extends Controller
                             ->where('rm.role_id',$role_id)
                             ->where('m.pid',$v->id)
                             ->select('m.*')
+                            ->orderBy('m.sort','DESC')
                             ->get();
             if(count($menu_list[$k]->child)){
                 $menu_list[$k]->has_child = true;
