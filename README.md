@@ -19,6 +19,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 > * 初始超级管理员账号:admin 密码:yamecent666 初始超级管理员具有最高权限,不可删除
 > * 如发现权限相关问题 执行 chown -R 用户名:用户组 项目目录
 > * 访问域名,登录即可进入管理系统
+> * UI参考地址: http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html
 
 
 [1]: https://www.woann.cn
