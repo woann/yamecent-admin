@@ -15,7 +15,8 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 
 ## 安装教程
 
-> * 初始版本并没有集成一些安装工具,只需clone下源文件,sql文件在根目录下,导入到数据库即可,其他相关操作和laravel框架一致.我们将在后期集成一些安装工具一键安装等
+> * composer require woann/yamecent-admin 
+> * 数据库文件在根目录下 yamecent-admin.sql
 > * 初始超级管理员账号:admin  密码:yamecent666  初始超级管理员具有最高权限,不可删除
 
 
