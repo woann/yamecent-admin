@@ -41,6 +41,7 @@ $('input.required').blur(function(){
     }
 })
 function myRequest(url,type,data,success,error) {
+    var index = layer.load();
     $.ajax({
         url:url,
         type:type,
@@ -49,6 +50,9 @@ function myRequest(url,type,data,success,error) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType:"json",
+        complete:function(){
+            layer.close(index);
+        },
         success:success,
         error:error
     })
