@@ -17,7 +17,7 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="/assets/images/favicon.png" />
 
-  <script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <style>
     /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
     ::-webkit-scrollbar

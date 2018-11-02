@@ -21,11 +21,13 @@ class AdministratorController extends Controller
         //获取一级菜单
         $list = DB::table('admin_menu')
             ->where('pid',0)
+            ->orderBy('sort','DESC')
             ->get();
         foreach ($list as $k=>$v){
             $list[$k]->role = $this->getMenuRole($v->id);
             $list[$k]->child = DB::table('admin_menu')
                 ->where('pid',$v->id)
+                ->orderBy('sort','DESC')
                 ->get();
             foreach ($list[$k]->child as $key=>$val){
                 $list[$k]->child[$key]->role = $this->getMenuRole($val->id);
@@ -76,7 +78,7 @@ class AdministratorController extends Controller
             return $this->json(200,'添加成功');
         }else{
             $role_list = DB::table('admin_role')->get();
-            $parent_menu = DB::table('admin_menu')->where('pid',0)->get();
+            $parent_menu = DB::table('admin_menu')->where('pid',0)->orderBy('sort','DESC')->get();
             return view('admin.menu_add',['role_list'=>$role_list,'parent_menu'=>$parent_menu]);
         }
     }
@@ -125,7 +127,7 @@ class AdministratorController extends Controller
                     $role_list[$k]->checked = false;
                 }
             }
-            $parent_menu = DB::table('admin_menu')->where('pid',0)->get();
+            $parent_menu = DB::table('admin_menu')->where('pid',0)->orderBy('sort','DESC')->get();
             $res = DB::table('admin_menu')->find($id);
             return view('admin.menu_update',['role_list'=>$role_list,'parent_menu'=>$parent_menu,'res'=>$res]);
         }
