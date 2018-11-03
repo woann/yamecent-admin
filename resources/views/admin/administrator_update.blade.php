@@ -15,7 +15,7 @@
                                     <input type="file" class="file-upload-default img-file" data-path="avatar">
                                     <input type="hidden" name="avatar" class="image-path" value="{{$res->avatar}}">
                                     <div class="input-group col-xs-12">
-                                        <input type="text" class="form-control file-upload-info" disabled="">
+                                        <input type="text" class="form-control file-upload-info" disabled="" value="{{$res->avatar}}">
                                         <span class="input-group-append">
                                             <button class="file-upload-browse btn btn-gradient-primary" onclick="upload($(this))" type="button">上传</button>
                                         </span>
