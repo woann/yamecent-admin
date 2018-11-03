@@ -18524,7 +18524,7 @@ html {
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
   /*width: calc(100% - 260px);*/
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 0px);
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
@@ -20880,7 +20880,7 @@ dl li {
 
 .table th .badge,
 .table td .badge {
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 .table.table-borderless {
