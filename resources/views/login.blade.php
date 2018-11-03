@@ -22,8 +22,6 @@
               <div class="brand-logo">
                 <img src="{{ getConfig("admin_logo") }}">
               </div>
-              {{--<h4>管理员登录</h4>--}}
-              {{--<h6 class="font-weight-light">Sign in to continue.</h6>--}}
               <form class="pt-3">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="account" placeholder="请输入账号">
@@ -56,11 +54,20 @@
   <script src="/assets/js/common.js"></script>
 </body>
 <script>
+
+    document.onkeydown=keyListener;
+    function keyListener(e){
+        if(e.keyCode == 13){
+            login();
+        }
+    }
+
     function login(){
         var account = $("#account").val();
         var password = $("#password").val();
         if(!account || !password){
             layer.msg('账号和密码不能为空', function(){});
+            return false;
         }
         var data = {
             'account':account,

@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{ $v->id }}</td>
                                         <td>{{ $v->name }}</td>
-                                        <td style="word-wrap:break-word;word-break:break-all;">
+                                        <td style="word-wrap:break-word;word-break:break-all">
                                             @foreach($v->route as $i => $j)
                                                 <label class="badge badge-success">{{$j}}</label>
                                             @endforeach
