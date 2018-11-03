@@ -1,6 +1,5 @@
 # 欢迎使用yamecent-admin后台管理
 
-------
 ## 项目简介
 yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
 
