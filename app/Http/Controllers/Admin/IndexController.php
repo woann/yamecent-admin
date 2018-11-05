@@ -34,7 +34,7 @@ class IndexController extends Controller
                 $menu_list[$k]->has_child = false;
             }
         }
-        return view('index',['menu'=>$menu_list]);
+        return view('admin.index',['menu'=>$menu_list]);
     }
     public function console()
     {

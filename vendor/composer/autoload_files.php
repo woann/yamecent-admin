@@ -17,6 +17,5 @@ return array(
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
     '0d8253363903f0ac7b0978dcde4e28a0' => $vendorDir . '/beyondcode/laravel-dump-server/helpers.php',
-    '54dfeeece9f9d6dfd9f84cc67537f31e' => $baseDir . '/app/Utility/php-sdk-master/src/VideoCloud/functions.php',
-    '09ac5c52859cb641f8ebcf6d6c2d49ac' => $baseDir . '/app/Utility/functions.php',
+    'a55ab43db59363122edcefa813650fc0' => $baseDir . '/app/Utility/functions.php',
 );

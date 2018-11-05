@@ -24,11 +24,9 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "VideoCloud\\": "app/Utility/php-sdk-master/src/VideoCloud"
+            "App\\": "app/"
         },
         "files": [
-            "app/Utility/php-sdk-master/src/VideoCloud/functions.php",
             "app/Utility/functions.php"
         ]
     },

@@ -220,11 +220,11 @@ class AdministratorController extends Controller
             return $this->json(200,"修改成功");
         }else{
             $res = DB::table('admin_role')->find($id);
-            $my_permission = DB::table('admin_role_permission')->select('id')->where('role_id',$id)->get();
+            $my_permission = DB::table('admin_role_permission')->select('permission_id')->where('role_id',$id)->get();
             $permission_list = DB::table('admin_permission')->get();
             $my_permission_ids = [];
             foreach ($my_permission as $k=>$v){
-                $my_permission_ids[] = $v->id;
+                $my_permission_ids[] = $v->permission_id;
             }
             foreach ($permission_list as $k=>$v){
                if(in_array($v->id,$my_permission_ids)){
@@ -471,7 +471,7 @@ class AdministratorController extends Controller
             $request->session()->put('admin', $admin);
             return $this->json(200,'登录成功!');
         }else{
-            return view('login');
+            return view('admin.login');
         }
     }
 
@@ -500,7 +500,7 @@ class AdministratorController extends Controller
             return $this->json(200,'修改成功');
         }else{
             $res = DB::table('admin_user')->find($id);
-            return view('edit_info',['res'=>$res]);
+            return view('admin.edit_info',['res'=>$res]);
         }
     }
 
