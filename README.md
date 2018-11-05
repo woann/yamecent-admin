@@ -6,10 +6,11 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  * rbac权限管理模块
  * 完整的ui组件(外部引入)
  * 图片上传,网络请求等常用的js公共函数
+ * [演示地址][3]
  * 持续维护中...
 
 ## 安装教程
- * 执行安装命令 `composer create-project woann/yamecent-admin` 或者 `git clone https://github.com/woann/yamecent-admin`
+ * 执行安装命令 `git clone https://github.com/woann/yamecent-admin`或者`composer create-project woann/yamecent-admin`
  * 导入数据到数据库,数据库文件在项目根目录下 yamecent-admin.sql
  * 修改数据库配置信息(根目录下.env文件)
  * 配置域名(按laravel项目正常配置即可,解析到public目录)
@@ -29,6 +30,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 
 [1]: https://www.woann.cn
 [2]: http://xjj.woann.cn
+[3]: https://demo.woann.cn
 
 部分截图:
 
