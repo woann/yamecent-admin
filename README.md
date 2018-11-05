@@ -6,7 +6,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  * rbac权限管理模块
  * 完整的ui组件(外部引入)
  * 图片上传,网络请求等常用的js公共函数
- * [演示地址][3]
+ * [演示地址][3]`管理员账号:admin 密码:yamecent666`
  * 持续维护中...
 
 ## 安装教程
@@ -14,7 +14,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  * 导入数据到数据库,数据库文件在项目根目录下 yamecent-admin.sql
  * 修改数据库配置信息(根目录下.env文件)
  * 配置域名(按laravel项目正常配置即可,解析到public目录)
- * 初始超级管理员账号:admin 密码:yamecent666 初始超级管理员具有最高权限,不可删除
+ * 初始超级管理员具有最高权限,不可删除
  * 如发现权限相关问题 执行 chown -R 用户名:用户组 项目目录
  * 访问域名,登录即可进入管理系统
  * UI参考地址: http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html
