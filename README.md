@@ -44,14 +44,14 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
     editor.config.hideLinkImg = false;
     editor.create();
  ```
-
+ * 示例
+![富文本编辑器](https://www.woann.cn/data/uploads/20181106/4b46e3cb6f919a809de3d4767b87f3a6.png)
 [1]: https://www.woann.cn
 [2]: http://xjj.woann.cn
 [3]: http://demo.woann.cn
 
 部分截图:
 
-![admin](https://www.woann.cn/data/uploads/20181030/58f690bb811c62f417c7d3deb8508e7d.png)
 ![admin](https://www.woann.cn/data/uploads/20181030/64edd12357e3d5012efd8aba1d71da69.png)
 ![admin](https://www.woann.cn/data/uploads/20181031/963a14bd20bcdd8fcb5a2e0cd5be2111.png)
 ![admin](https://www.woann.cn/data/uploads/20181031/366b35386620019dbe1052a3eee7b924.png)
