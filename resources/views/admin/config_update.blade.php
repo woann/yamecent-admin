@@ -61,7 +61,6 @@
             </div>
         </div>
     </div>
-    <script src="/assets/wangEditor/dist/js/wangEditor.min.js"></script>
     <script>
         @if($res->type == "text")
         var editor = new wangEditor('editor');
