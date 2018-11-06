@@ -106,3 +106,41 @@ function cutStr(len){
         }
     }
 }
+$('.batch-all').click(function(){
+    if(this.checked) {
+        $(".td-check").prop('checked',true);
+    }else {
+        $(".td-check").prop('checked',false);
+    }
+});
+$(".td-check").click(function(){
+    if($(".td-check").length == $(".td-check:checked").length) {
+        $('.batch-all').prop('checked',true);
+    }else{
+        $('.batch-all').prop('checked',false);
+    }
+});
+function batch(url){
+    var ids = "";
+    if($(".td-check:checked").length == 0){
+        layer.msg("请先选择要操作的数据");
+        return false;
+    }
+    $(".td-check:checked").each(function(index){
+        if(index == 0){
+            ids += $(this).val();
+        }else{
+            ids += ","+$(this).val();
+        }
+    })
+    myConfirm("是否继续批量操作?",function(){
+        myRequest(url+ids,"get",{},function(res){
+            layer.msg(res.msg)
+            setTimeout(function(){
+                window.location.reload();
+            },1500)
+        },function(){
+            layer.msg(res.msg, function(){});
+        });
+    });
+}

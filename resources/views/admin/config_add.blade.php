@@ -64,7 +64,6 @@
             </div>
         </div>
     </div>
-    <script src="/assets/wangEditor/dist/js/wangEditor.min.js"></script>
     <script>
         $(document).on('change','#type',function(){
             if($(this).val() == 'string'){

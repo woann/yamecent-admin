@@ -46,6 +46,7 @@
 </head>
 <body>
 <script src="/layer/layer.js"></script>
+<script src="/assets/wangEditor/dist/js/wangEditor.min.js"></script>
 @yield('base')
   <!-- plugins:js -->
   <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
