@@ -101,10 +101,10 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 ## 部分截图
 
 ![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171647.png)
-![admin](https://www.woann.cn/data/uploads/20181106/9c914bf16185d339eb0f4d8b8c1a7158.png)
-![admin](https://www.woann.cn/data/uploads/20181106/69331944d524be0e77dff9038694a615.png)
-![admin](https://www.woann.cn/data/uploads/20181106/03d9cadfdbd5302d13af8dea8626353a.png)
-![admin](https://www.woann.cn/data/uploads/20181106/f008d4c74753434569aa64341f09248f.png)
+![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171657.png)
+![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171704.png)
+![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171710.png)
+![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/度截图_选择区域_20181106171719.png)
 
 作者 [@woann][1]  [@xjj][2]   
 2018 年 10月 30日    
