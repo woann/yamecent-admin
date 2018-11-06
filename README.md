@@ -31,7 +31,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 ## 富文本
  * html
   `<div class="form-group " id="text" style="display: none;">
-    <label >* 富文本</label>
+    <label >富文本</label>
     <textarea  placeholder="请在此处编辑内容"  id="editor" style="height:400px;max-height:400px;overflow: hidden"></textarea >
    </div>`
 
