@@ -55,22 +55,32 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
     <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="batch('/admin/user/del/')">
        <i class="mdi mdi-delete btn-icon-prepend"></i>批量删除
     </button>
+```
+```html
     <!--全选复选框-->
-    <th width="3%">
-        <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input batch-all">
-            </label>
-        </div>
-     </th>
+    <tr>
+        <th width="3%">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input batch-all">
+                </label>
+            </div>
+         </th>
+        ...
+    </tr>
+```
+```html
     <!--列表复选框-->
-    <td>
-        <div class="form-check">
-           <label class="form-check-label">
-               <input type="checkbox" class="form-check-input td-check" value="{{ $v->id }}">
-           </label>
-        </div>
-    </td>
+    <tr>
+        <td>
+            <div class="form-check">
+               <label class="form-check-label">
+                   <input type="checkbox" class="form-check-input td-check" value="{{ $v->id }}">
+               </label>
+            </div>
+        </td>
+        ...
+    </tr>
  ```
 
  * 示例
