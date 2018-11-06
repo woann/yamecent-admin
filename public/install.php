@@ -231,7 +231,7 @@ if (!$errInfo && isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']
                         $('#error').hide();
                         $("#success").text("安装成功！即将跳转至登录页！").show();
                         setTimeout(function(){
-                            location.href = "./index.php/login";//PC网页式跳转
+                            location.href = "/login";
                         },2000);
                         localStorage.setItem("fastep", "installed");
                     } else {
