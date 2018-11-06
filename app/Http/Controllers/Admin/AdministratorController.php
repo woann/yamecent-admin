@@ -252,6 +252,8 @@ class AdministratorController extends Controller
         if(!$res){
             //删除该角色和权限的关联
             DB::table('admin_role_permission')->where('role_id',$id)->delete();
+            //删除角色和管理员的关联
+            DB::table('admin_user_role')->where('role_id',$id)->delete();
             return $this->json(500,'删除失败');
         }
         return $this->json(200,'删除成功');
@@ -336,10 +338,10 @@ class AdministratorController extends Controller
      */
     public function permissionDel($id){
         $res = DB::table('admin_permission')->delete($id);
-        DB::table('admin_role_permission')->where('permission_id',$id)->delete();
         if(!$res){
             return $this->json(500,'删除失败');
         }
+        DB::table('admin_role_permission')->where('permission_id',$id)->delete();
         return $this->json(200,'删除成功');
     }
 
@@ -443,6 +445,8 @@ class AdministratorController extends Controller
         if(!$res){
             return $this->json(500,'删除失败');
         }
+        //删除关联
+        DB::table('admin_user_role')->where('admin_user_id',$id)->delete();
         return $this->json(200,'删除成功');
     }
 
