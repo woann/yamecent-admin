@@ -35,6 +35,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 | function myConfirm(msg,confirm){} | 发起询问框 |
 | checkForm(){} | 验证表单 |
 | cutStr(){} | 限制td字数 |
+| batch(url){} | 批量操作 |
 ## 富文本
  * html
  ```html
