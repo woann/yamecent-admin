@@ -27,6 +27,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 | function myConfirm(msg,confirm){} | 发起询问框 |
 | checkForm(){} | 验证表单 |
 | cutStr(){} | 限制td字数 |
+| batch(url){} | 批量操作 |
 
 ## 富文本
  * html
@@ -46,6 +47,34 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  ```
  * 示例
 ![富文本编辑器](https://www.woann.cn/data/uploads/20181106/4b46e3cb6f919a809de3d4767b87f3a6.png)
+
+## 列表批量操作
+* html
+ ```html
+    <!--按钮-->
+    <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="batch('/admin/user/del/')">
+       <i class="mdi mdi-delete btn-icon-prepend"></i>批量删除
+    </button>
+    <!--全选复选框-->
+    <th width="3%">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input batch-all">
+            </label>
+        </div>
+     </th>
+    <!--列表复选框-->
+    <td>
+        <div class="form-check">
+           <label class="form-check-label">
+               <input type="checkbox" class="form-check-input td-check" value="{{ $v->id }}">
+           </label>
+        </div>
+    </td>
+ ```
+
+ * 示例
+![批量操作](https://www.woann.cn/data/uploads/20181106/b9c768af7774621707f45cc328a3b8ae.png)
 
 [1]: https://www.woann.cn
 [2]: http://xjj.woann.cn
