@@ -1,7 +1,13 @@
 # 欢迎使用yamecent-admin后台管理
 
+## 环境要求
+
+| 依赖 | 说明 |
+| -------- | -------- |
+| [PHP](https://secure.php.net/manual/zh/install.php) | `PHP7+` |
+
 ## 项目简介
-yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
+yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含： 
 
  * rbac权限管理模块
  * 完整的ui组件(外部引入)
