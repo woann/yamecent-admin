@@ -9,6 +9,17 @@
 ini_set("display_errors","On");
 define('LARAVEL_START', microtime(true));
 
+
+//安装文件检测
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT_PATH', __DIR__ . DS . '..' . DS);
+define('APP_PATH', ROOT_PATH . 'app');
+define('INSTALL_PATH', APP_PATH .DS. 'install' . DS);
+$lockFile = INSTALL_PATH . 'install.lock';
+if (!is_file($lockFile))
+{
+    header("Location:/install.php");
+}
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
