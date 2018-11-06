@@ -18,7 +18,7 @@ define('INSTALL_PATH', APP_PATH .DS. 'install' . DS);
 $lockFile = INSTALL_PATH . 'install.lock';
 if (!is_file($lockFile))
 {
-    header("Location:/install.php");
+    echo '<script>window.location.href="/install.php"</script>';
 }
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +59,6 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
-
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
