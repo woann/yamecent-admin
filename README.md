@@ -36,6 +36,14 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
         <textarea  placeholder="请在此处编辑内容"  id="editor" style="height:400px;max-height:400px;overflow: hidden"></textarea >   
     </div>
  ```
+ * javascript
+ ```javascript
+    var editor = new wangEditor('editor');
+    editor.config.uploadImgUrl = "/admin/wangeditor/upload";
+    // 隐藏掉插入网络图片功能。该配置，只有在你正确配置了图片上传功能之后才可用。
+    editor.config.hideLinkImg = false;
+    editor.create();
+ ```
 
 [1]: https://www.woann.cn
 [2]: http://xjj.woann.cn
