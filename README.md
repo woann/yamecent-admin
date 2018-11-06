@@ -6,7 +6,7 @@
 | -------- | -------- |
 | [PHP](https://secure.php.net/manual/zh/install.php) | `PHP7+` |
 
-------
+
 ## 项目简介
 yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
 
@@ -16,7 +16,6 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 持续维护中...
 
 
-------
 ## 安装教程
 * 执行安装命令 `composer create-project woann/yamecent-admin` 或者`git clone git@github.com:woann/yamecent-admin.git` 
 * 配置域名(按laravel项目正常配置即可,解析到public目录)
