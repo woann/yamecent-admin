@@ -98,12 +98,13 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 [2]: http://xjj.woann.cn
 [3]: http://demo.woann.cn
 
-部分截图:
+## 部分截图
 
-![admin](http://upload-images.jianshu.io/upload_images/14769055-6cdf8ab92efbd3a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![admin](http://upload-images.jianshu.io/upload_images/14769055-2653d63deeb067ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![admin](http://upload-images.jianshu.io/upload_images/14769055-d06caa6cbe6d27bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![admin](http://upload-images.jianshu.io/upload_images/14769055-b5451e2355517c2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](https://www.woann.cn/data/uploads/20181106/ebcad2598a41ce3fa442c3074a34c248.png)
+![admin](https://www.woann.cn/data/uploads/20181106/9c914bf16185d339eb0f4d8b8c1a7158.png)
+![admin](https://www.woann.cn/data/uploads/20181106/69331944d524be0e77dff9038694a615.png)
+![admin](https://www.woann.cn/data/uploads/20181106/03d9cadfdbd5302d13af8dea8626353a.png)
+![admin](https://www.woann.cn/data/uploads/20181106/f008d4c74753434569aa64341f09248f.png)
 
 作者 [@woann][1]  [@xjj][2]   
 2018 年 10月 30日    
