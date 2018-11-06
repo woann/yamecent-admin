@@ -6,24 +6,27 @@
 | -------- | -------- |
 | [PHP](https://secure.php.net/manual/zh/install.php) | `PHP7+` |
 
-## 项目简介
-yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含： 
 
- * rbac权限管理模块
- * 完整的ui组件(外部引入)
- * 图片上传,网络请求等常用的js公共函数
- * [演示地址][3]`管理员账号:admin 密码:yamecent666`
- * 持续维护中...
+## 项目简介
+yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
+
+* rbac权限管理模块
+* 完整的ui组件(外部引入)
+* 自定义配置管理
+* 图片上传,网络请求等常用的js公共函数
+* 持续维护中...
+
 
 ## 安装教程
- * 执行安装命令 `git clone https://github.com/woann/yamecent-admin`或者`composer create-project woann/yamecent-admin`
- * 导入数据到数据库,数据库文件在项目根目录下 yamecent-admin.sql
- * 修改数据库配置信息(根目录下.env文件)
- * 配置域名(按laravel项目正常配置即可,解析到public目录)
- * 初始超级管理员具有最高权限,不可删除
- * 如发现权限相关问题 执行 chown -R 用户名:用户组 项目目录
- * 访问域名,登录即可进入管理系统
- * UI参考地址: http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html
+* 执行安装命令 `composer create-project woann/yamecent-admin` 或者`git clone git@github.com:woann/yamecent-admin.git` 
+* 配置域名(按laravel项目正常配置即可,解析到public目录)
+* 如发现权限相关问题 执行 chown -R 用户名:用户组 项目目录
+* 访问域名,登录即可进入管理系统
+* 首次访问域名时会跳转至安装页面![1541490225.jpg](https://upload-images.jianshu.io/upload_images/14769055-a5c3bae19726a891.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 填写完数据表配置之后，点击安装即可（有点小慢，喝口水）
+* 安装完之后就可以使用刚刚提交的管理员账号密码登录了（如果您想重新安装，要将/app/install/install.lock 文件删掉，重新访问网址即可）
+* UI参考地址: http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html
+
 
 ## js函数列表
 
@@ -34,7 +37,6 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 | checkForm(){} | 验证表单 |
 | cutStr(){} | 限制td字数 |
 | batch(url){} | 批量操作 |
-
 ## 富文本
  * html
  ```html
@@ -52,7 +54,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
     editor.create();
  ```
  * 示例
-![富文本编辑器](https://www.woann.cn/data/uploads/20181106/4b46e3cb6f919a809de3d4767b87f3a6.png)
+![富文本编辑器](http://upload-images.jianshu.io/upload_images/14769055-b42c1b3b4f4ab979.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 列表批量操作
 * html
@@ -90,17 +92,18 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  ```
 
  * 示例
-![批量操作](https://www.woann.cn/data/uploads/20181106/b9c768af7774621707f45cc328a3b8ae.png)
+![批量操作](http://upload-images.jianshu.io/upload_images/14769055-62ba575064933680.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 [1]: https://www.woann.cn
 [2]: http://xjj.woann.cn
 [3]: http://demo.woann.cn
 
-## 部分截图
+部分截图:
 
-![admin](https://www.woann.cn/data/uploads/20181030/64edd12357e3d5012efd8aba1d71da69.png)
-![admin](https://www.woann.cn/data/uploads/20181031/963a14bd20bcdd8fcb5a2e0cd5be2111.png)
-![admin](https://www.woann.cn/data/uploads/20181031/366b35386620019dbe1052a3eee7b924.png)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-6cdf8ab92efbd3a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-2653d63deeb067ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-d06caa6cbe6d27bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-b5451e2355517c2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 作者 [@woann][1]  [@xjj][2]   
 2018 年 10月 30日    
