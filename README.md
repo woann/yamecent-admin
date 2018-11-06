@@ -28,8 +28,8 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 | checkForm(){} | 验证表单 |
 | cutStr(){} | 限制td字数 |
 
-##富文本
-*html
+## 富文本
+ * html
 `<div class="form-group " id="text" style="display: none;">
     <label >* 富文本</label>
     <textarea  placeholder="请在此处编辑内容"  id="editor" style="height:400px;max-height:400px;overflow: hidden"></textarea >
