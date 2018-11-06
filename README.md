@@ -53,7 +53,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
     editor.create();
  ```
  * 示例
-[站外图片上传中...(image-f5301a-1541493243635)]
+![富文本编辑器](http://upload-images.jianshu.io/upload_images/14769055-b42c1b3b4f4ab979.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 列表批量操作
 * html
@@ -69,4 +69,40 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
         <th width="3%">
             <div class="form-check">
                 <label class="form-check-label">
-                    <input type="checkbox
+                    <input type="checkbox" class="form-check-input batch-all">
+                </label>
+            </div>
+         </th>
+        ...
+    </tr>
+```
+```html
+    <!--列表复选框-->
+    <tr>
+        <td>
+            <div class="form-check">
+               <label class="form-check-label">
+                   <input type="checkbox" class="form-check-input td-check" value="{{ $v->id }}">
+               </label>
+            </div>
+        </td>
+        ...
+    </tr>
+ ```
+
+ * 示例
+![批量操作](http://upload-images.jianshu.io/upload_images/14769055-62ba575064933680.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+[1]: https://www.woann.cn
+[2]: http://xjj.woann.cn
+[3]: http://demo.woann.cn
+
+部分截图:
+
+![admin](http://upload-images.jianshu.io/upload_images/14769055-6cdf8ab92efbd3a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-2653d63deeb067ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-d06caa6cbe6d27bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![admin](http://upload-images.jianshu.io/upload_images/14769055-b5451e2355517c2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+作者 [@woann][1]  [@xjj][2]   
+2018 年 10月 30日    
