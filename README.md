@@ -46,6 +46,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  ```
  * 示例
 ![富文本编辑器](https://www.woann.cn/data/uploads/20181106/4b46e3cb6f919a809de3d4767b87f3a6.png)
+
 [1]: https://www.woann.cn
 [2]: http://xjj.woann.cn
 [3]: http://demo.woann.cn
