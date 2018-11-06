@@ -26,6 +26,9 @@ class Rbac{
         $route_current = \Route::current()->uri;
         //获取当前管理员角色
         $role = DB::table('admin_user_role')->where("admin_user_id",$session->id)->first();
+        if(!$role){
+            return redirect("403");
+        }
         $role_id = $role->id;
         //通过角色获取当前管理员所有权限
         $permission_list = DB::table('admin_role_permission as rp')
