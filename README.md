@@ -1,4 +1,5 @@
 # 欢迎使用yamecent-admin后台管理
+![LOGO](http://demo.woann.cn/uploads/avatar/20181107/5be269ef937d1.png)
 
 ## 环境要求
 
