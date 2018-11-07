@@ -39,7 +39,7 @@ CREATE TABLE `v_admin_config` (
 --
 
 INSERT INTO `v_admin_config` (`id`, `name`, `config_key`, `config_value`, `type`, `created_at`, `updated_at`) VALUES
-(7, '后台管理LOGO', 'admin_logo', '/uploads/config/20181031/5bd91d0bcfd6f.png', 'image', '2018-10-31 03:03:52', '2018-10-31 03:03:52');
+(7, '后台管理LOGO', 'admin_logo', '/uploads/avatar/20181107/5be269ef937d1.png', 'image', '2018-10-31 03:03:52', '2018-10-31 03:03:52');
 
 -- --------------------------------------------------------
 
