@@ -75,8 +75,6 @@ if (!$errInfo && isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']
         $pdo->exec($sql);
         //初始化env文件
         $envPath = ROOT_PATH. '.env';
-        $cpEnvPath = ROOT_PATH. '.cpenv';
-        copy($cpEnvPath,$envPath);
         //将配置写入env
         $data = [
             'DB_PORT' => $mysqlHostport,
