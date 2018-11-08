@@ -52,6 +52,8 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
     editor.config.uploadImgUrl = "/admin/wangeditor/upload";
     // 隐藏掉插入网络图片功能。该配置，只有在你正确配置了图片上传功能之后才可用。
     editor.config.hideLinkImg = false;
+    //关闭导航栏浮动
+    editor.config.menuFixed = false;
     editor.create();
  ```
  * 示例
