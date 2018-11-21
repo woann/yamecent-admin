@@ -130,21 +130,27 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 数据统计
 
 ![数据统计](https://upload-images.jianshu.io/upload_images/9160823-33fd684515b11c2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 * 自定义配置（字符串，图片，富文本多种数据格式,可通过getConfig("key")的方式获取配置值）
 
 ![自定义配置](https://upload-images.jianshu.io/upload_images/9160823-bc9b710eaecf7ef7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 * 权限管理
 
 ![权限管理](https://upload-images.jianshu.io/upload_images/9160823-48859283e45b6fd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 * 菜单管理
 
 ![菜单管理](https://upload-images.jianshu.io/upload_images/9160823-07eed87c32fc721c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 * 管理员
 
 ![管理员](https://upload-images.jianshu.io/upload_images/9160823-4b14ee0d83ab20da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 * 角色
 
 ![角色](https://upload-images.jianshu.io/upload_images/9160823-f75c5aa058bf7e77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 作者 [@woann][1]  [@xjj][2]   
 2018 年 10月 30日    
