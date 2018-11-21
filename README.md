@@ -38,6 +38,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 | checkForm(){} | 验证表单 |
 | cutStr(){} | 限制td字数 |
 | batch(url){} | 批量操作 |
+| $("节点").flatpickr(); | 时间选择器 |
 ## 富文本
  * html
  ```html
@@ -58,6 +59,26 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  ```
  * 示例
 ![富文本编辑器](http://upload-images.jianshu.io/upload_images/14769055-b42c1b3b4f4ab979.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+## 时间选择器
+* html
+ ```html
+    <div class="form-group">
+       <label >*生效时间</label>
+       <input type="text"  class="form-control required calendar" name="time" placeholder="请选择时间">
+    </div>
+ ```
+ * javascript
+ ```javascript
+     $(".calendar").flatpickr({
+            dateFormat:"Y-m-d H:i:S",
+            enableTime:true,
+            enableSeconds:true
+            //更多配置百度搜索flatpickr即可找到
+        });
+ ```
+  * 示例
+![时间选择器](https://github.com/woann/yamecent-admin/raw/master/public/images/timer.png)
 
 ## 列表批量操作
 * html
