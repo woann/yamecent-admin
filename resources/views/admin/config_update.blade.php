@@ -28,7 +28,7 @@
                                 @elseif($res->type == "image")
                                     <div class="form-group" id="image">
                                         <label>* 配置值(value)</label>
-                                        <input type="file" class="file-upload-default img-file" data-path="avatar">
+                                        <input type="file" class="file-upload-default img-file" data-path="config">
                                         <input type="hidden" class="image-path value-input" name="config_value" value="{{ $res->config_value }}">
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" disabled="" value="{{ $res->config_value }}">

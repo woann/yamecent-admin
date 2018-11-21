@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group" id="image" style="display: none;">
                                     <label>* 配置值(value)</label>
-                                    <input type="file" class="file-upload-default img-file" data-path="avatar">
+                                    <input type="file" class="file-upload-default img-file" data-path="config">
                                     <input type="hidden" class="image-path value-input">
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled="">

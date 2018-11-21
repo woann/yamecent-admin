@@ -18,6 +18,10 @@
   <link rel="shortcut icon" href="/assets/images/favicon.png" />
 
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  {{--datetimer--}}
+  <link rel="stylesheet" id=cal_style type="text/css" href="/assets/datetimer/dist/flatpickr.min.css">
+  <script src="/assets/datetimer/src/flatpickr.js"></script>
+  <script src="/assets/datetimer/src/flatpickr.l10n.zh.js"></script>
   <style>
     /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
     ::-webkit-scrollbar
