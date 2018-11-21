@@ -5,7 +5,8 @@
 
 | 依赖 | 说明 |
 | -------- | -------- |
-| [PHP](https://secure.php.net/manual/zh/install.php) | `PHP7+` |
+| [PHP](https://secure.php.net/manual/zh/install.php) | `PHP7.2+` |
+| [laravel](https://laravel.com/) | `5.7+` |
 
 
 ## 项目简介
