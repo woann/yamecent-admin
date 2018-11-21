@@ -27,7 +27,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 首次访问域名时会跳转至安装页面![安装页面.jpg](https://upload-images.jianshu.io/upload_images/14769055-a5c3bae19726a891.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 * 填写完数据表配置之后，点击安装即可（有点小慢，喝口水）
 * 安装完之后就可以使用刚刚提交的管理员账号密码登录了（如果您想重新安装，要将/app/install/install.lock 文件删掉，重新访问网址即可）
-* UI参考地址: http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html
+* UI参考地址: 查看[UI组件](http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html)
 
 
 ## js函数列表
