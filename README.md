@@ -1,5 +1,5 @@
 # 欢迎使用yamecent-admin后台管理
-![LOGO](http://demo.woann.cn/uploads/avatar/20181107/5be269ef937d1.png)
+![LOGO](http://upload-images.jianshu.io/upload_images/9160823-5ca4487bc91ab57a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 环境要求
 
@@ -24,7 +24,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 配置域名(按laravel项目正常配置即可,解析到public目录)
 * 如发现权限相关问题 执行 chown -R 用户名:用户组 项目目录
 * 访问域名,登录即可进入管理系统
-* 首次访问域名时会跳转至安装页面![1541490225.jpg](https://upload-images.jianshu.io/upload_images/14769055-a5c3bae19726a891.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 首次访问域名时会跳转至安装页面![安装页面.jpg](https://upload-images.jianshu.io/upload_images/14769055-a5c3bae19726a891.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 * 填写完数据表配置之后，点击安装即可（有点小慢，喝口水）
 * 安装完之后就可以使用刚刚提交的管理员账号密码登录了（如果您想重新安装，要将/app/install/install.lock 文件删掉，重新访问网址即可）
 * UI参考地址: http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html
@@ -81,7 +81,8 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
  ```
   * 示例
 
-![时间选择器](https://github.com/woann/yamecent-admin/raw/master/public/images/timer.png)
+![时间选择器](https://upload-images.jianshu.io/upload_images/9160823-ee7dedaeb832a49c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ## 列表批量操作
 * html
@@ -126,12 +127,18 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 [3]: http://demo.woann.cn
 
 ## 部分截图
-
-![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171647.png)
-![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171657.png)
-![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171704.png)
-![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171710.png)
-![admin](https://github.com/woann/yamecent-admin/raw/master/public/images/深度截图_选择区域_20181106171719.png)
+* 数据统计
+![数据统计](https://upload-images.jianshu.io/upload_images/9160823-33fd684515b11c2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 自定义配置（字符串，图片，富文本多种数据格式,可通过getConfig("key")的方式获取配置值）
+![自定义配置](https://upload-images.jianshu.io/upload_images/9160823-bc9b710eaecf7ef7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 权限管理
+![权限管理](https://upload-images.jianshu.io/upload_images/9160823-48859283e45b6fd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 菜单管理
+![菜单管理](https://upload-images.jianshu.io/upload_images/9160823-07eed87c32fc721c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 管理员
+![管理员](https://upload-images.jianshu.io/upload_images/9160823-4b14ee0d83ab20da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* 角色
+![角色](https://upload-images.jianshu.io/upload_images/9160823-f75c5aa058bf7e77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 作者 [@woann][1]  [@xjj][2]   
 2018 年 10月 30日    
