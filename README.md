@@ -61,6 +61,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 ![富文本编辑器](http://upload-images.jianshu.io/upload_images/14769055-b42c1b3b4f4ab979.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 时间选择器
+* yamecent-admin的时间选择器是引入flatpickr插件，支持多语言，各种格式的时间选择。[查看文档](https://flatpickr.js.org)
 * html
  ```html
     <div class="form-group">
