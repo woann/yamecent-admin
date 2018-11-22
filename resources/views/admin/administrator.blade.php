@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{ $v->id }}</td>
                                         <td>
-                                            <img src="{{ $v->avatar ?? "" }}" alt="image">
+                                            <img class="avatar" src="{{ $v->avatar ?? "" }}" alt="image">
                                         </td>
                                         <td>{{ $v->nickname }}</td>
                                         <td>{{ $v->account }}</td>
