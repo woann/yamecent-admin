@@ -1,12 +1,8 @@
 # 欢迎使用yamecent-admin后台管理
 ![LOGO](http://upload-images.jianshu.io/upload_images/9160823-5ca4487bc91ab57a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 环境要求
-
-| 依赖 | 说明 |
-| -------- | -------- |
-| [PHP](https://secure.php.net/manual/zh/install.php) | `PHP7.2+` |
-| [laravel](https://laravel.com/) | `5.7+` |
+[![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
+[![Laravel Version](https://img.shields.io/badge/laravel-%3E=5.7+-brightgreen.svg?maxAge=2592000)](https://laravel.com/)
 
 
 ## 项目简介
