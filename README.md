@@ -3,7 +3,7 @@
 
 [![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
 [![Laravel Version](https://img.shields.io/badge/laravel-%3E=5.7+-brightgreen.svg?maxAge=2592000)](https://laravel.com/)
-
+[![Archer License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)](https://github.com/fdreamsu/SwArcher/blob/master/LICENSE)
 
 ## 项目简介
 yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
