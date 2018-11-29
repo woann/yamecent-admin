@@ -46,6 +46,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if($request->ajax()){
+            $message = $exception->getMessage();
+            $line = $exception->getLine();
+            $file = $exception->getFile();
+            $code = $exception->getCode();
+            return response()->json(['code'=>500,'msg'=>'请求发生错误!','data'=>[
+                'code' => $code,
+                'line' => $line,
+                'file' => $file,
+                'message' => $message,
+            ]]);
+        }else{
+            return response()->view('base.404');
+        }
+//        return parent::render($request, $exception);
     }
 }
