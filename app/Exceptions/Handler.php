@@ -46,7 +46,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($request->ajax()){
+        $debug = env("DEBUG");
+        if($debug){
+            if($request->ajax()){
             $message = $exception->getMessage();
             $line = $exception->getLine();
             $file = $exception->getFile();
@@ -60,6 +62,7 @@ class Handler extends ExceptionHandler
         }else{
             return response()->view('base.404');
         }
-//        return parent::render($request, $exception);
+        }
+        return parent::render($request, $exception);
     }
 }
