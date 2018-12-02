@@ -14,8 +14,8 @@ $lockFile = INSTALL_PATH . 'install.lock';
 if (is_file($lockFile)){
     $errInfo = "当前已经安装Yamecent-admin，如果需要重新安装，请手动移除app/install/install.lock文件";
 }
-else if (version_compare(PHP_VERSION, '5.5.0', '<')){
-    $errInfo = "当前版本(" . PHP_VERSION . ")过低，请使用PHP5.5以上版本";
+else if (version_compare(PHP_VERSION, '7.1.0', '<')){
+    $errInfo = "当前版本(" . PHP_VERSION . ")过低，请使用PHP7.1以上版本";
 }
 else if (!extension_loaded("PDO")){
     $errInfo = "当前未开启PDO，无法进行安装";
