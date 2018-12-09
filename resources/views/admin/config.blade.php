@@ -104,7 +104,9 @@
         </div>
     </div>
     <script>
-        cutStr(50);
+        $(function(){
+            cutStr(50);
+        });
         function add(){
             var page = layer.open({
                 type: 2,
