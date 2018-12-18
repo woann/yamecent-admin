@@ -100,10 +100,8 @@ function checkForm() {
 function cutStr(len){
     var obj=$('.len');
     for (i=0;i<obj.length;i++){
-        var a = obj[i].innerHTML.length;
-        if(a > len){
-            obj[i].innerHTML=obj[i].innerHTML.substring(0,len)+'…';
-        }
+        text = obj[i].innerHTML.replace(/\s*/g,"");
+        obj[i].innerHTML = text.substring(0,len)+'…';
     }
 }
 $('.batch-all').click(function(){
