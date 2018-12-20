@@ -75,8 +75,6 @@
                 }else{
                     layer.msg(res.msg)
                 }
-            },function(){
-                layer.msg(res.msg, function(){});
             });
         }
         function cancel() {

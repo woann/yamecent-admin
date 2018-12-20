@@ -102,7 +102,7 @@
                     setTimeout(function(){
                         window.location.reload();
                     },1500)
-                },null);
+                });
             });
         }
 

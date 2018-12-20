@@ -40,15 +40,8 @@ $('input.required').blur(function(){
         $(this).css('border','1px solid #ebedf2');
     }
 })
-function myRequest(url,type,data,success,error) {
+function myRequest(url,type,data,success) {
     var index = layer.load();
-    function defaultError(res){
-        layer.close(index);
-        layer.msg("请求失败！", function(){});
-    }
-    if (error == null){
-        error = defaultError
-    }
     $.ajax({
         url:url,
         type:type,
@@ -61,8 +54,11 @@ function myRequest(url,type,data,success,error) {
             layer.close(index);
         },
         success:success,
-        error:error
-    })
+        error:function () {
+            layer.close(index);
+            layer.msg("请求失败！", function(){});
+        }
+    });
 }
 function myConfirm(msg,confirm){
     layer.confirm(msg, {
