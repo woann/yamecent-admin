@@ -102,9 +102,7 @@
                     setTimeout(function(){
                         window.location.reload();
                     },1500)
-                },function(){
-                    layer.msg(res.msg, function(){});
-                });
+                },null);
             });
         }
 
