@@ -42,6 +42,13 @@ $('input.required').blur(function(){
 })
 function myRequest(url,type,data,success,error) {
     var index = layer.load();
+    function defaultError(res){
+        layer.close(index);
+        layer.msg("请求失败！", function(){});
+    }
+    if (error == null){
+        error = defaultError
+    }
     $.ajax({
         url:url,
         type:type,
