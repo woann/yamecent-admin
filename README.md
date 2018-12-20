@@ -29,7 +29,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 
 | 函数 | 用途 |
 | -------- | -------- |
-| myRequest(url,type,data,success,error){} | 发起ajax请求(包含laravel的token验证,loading等) |
+| myRequest(url,type,data,success){} | 发起ajax请求(包含laravel的token验证,loading等) |
 | function myConfirm(msg,confirm){} | 发起询问框 |
 | checkForm(){} | 验证表单 |
 | cutStr(){} | 限制td字数 |
