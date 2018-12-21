@@ -1,9 +1,11 @@
 # 欢迎使用yamecent-admin后台管理
 ![LOGO](http://upload-images.jianshu.io/upload_images/9160823-5ca4487bc91ab57a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
+[![Latest Stable Version](https://poser.pugx.org/woann/Light-php/v/stable.svg)](https://packagist.org/packages/woann/light-php)
+[![Total Downloads](https://poser.pugx.org/woann/Light-php/downloads.svg)](https://packagist.org/packages/woann/light-php)
+[![License](https://poser.pugx.org/woann/yamecent-admin/license.svg)](https://github.com/woann/yamecent-admin/blob/master/LICENSE)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
 [![Laravel Version](https://img.shields.io/badge/laravel-%3E=5.7-brightgreen.svg?maxAge=2592000)](https://laravel.com/)
-[![License](https://poser.pugx.org/woann/yamecent-admin/license.svg)](https://github.com/woann/yamecent-admin/blob/master/LICENSE)
+
 ## 项目简介
 yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其中包含：
 
