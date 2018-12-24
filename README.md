@@ -14,6 +14,7 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 完整的[UI组件](http://demo.cssmoban.com/cssthemes5/twts_141_PurpleAdmin/pages/ui-features/buttons.html)
 * 自定义配置管理
 * 图片上传,网络请求等常用的js公共函数
+* 项目弹出层引用了layer,可直接使用layer
 * 持续维护中...
 
 
@@ -27,16 +28,36 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 安装完之后就可以使用刚刚提交的管理员账号密码登录了（如果您想重新安装，要将/app/install/install.lock 文件删掉，重新访问网址即可）
 
 
-## js函数列表
+## 请求
+```javascript
+var data = {id:1};//参数
+myRequest("/admin/config/add","post",data,function(res){
+    //请求成功回调
+    layer.msg("提示信息");//弹出提示
+    //15秒后刷新父页面
+    setTimeout(function(){
+        parent.location.reload();
+    },1500)
+});
+```
+>请求失败回调默认封装了取消loading层的操作，如果想自定义请求失败的回调的话，自行修改public/assets/js/common.js文件中的myRequest方法
 
-| 函数 | 用途 |
-| -------- | -------- |
-| myRequest(url,type,data,success){} | 发起ajax请求(包含laravel的token验证,loading等) |
-| function myConfirm(msg,confirm){} | 发起询问框 |
-| checkForm(){} | 验证表单 |
-| cutStr(){} | 限制td字数 |
-| batch(url){} | 批量操作 |
-| $("节点").flatpickr(); | 时间选择器 |
+## 表单不为空验证
+input添加`require`class
+```
+ <div class="form-group" id="string">
+    <label >* 测试</label>
+    <input type="text" name="test" class="form-control require"  placeholder="">
+</div>
+```
+
+```
+check = checkForm();//验证表单，如果带有require的input为空，则边框变为红色并弹出提示
+if(!check){
+    return false;
+}
+```
+
 ## 富文本
  * html
  ```html
