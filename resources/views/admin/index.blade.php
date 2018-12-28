@@ -199,7 +199,7 @@
                   </li>
           @else
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ $v->url }}">
+                      <a class="nav-link" target="main" href="{{ $v->url }}">
                           <span class="menu-title">{{ $v->name }}</span>
                           <i class="{{ $v->icon }} menu-icon"></i>
                       </a>
