@@ -68,7 +68,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $v->config_key }}</td>
-                                        <td class="len">
+                                        <td @if($v->type != "image") class="len" @endif>
                                             @if($v->type == "image")
                                                 <div>
                                                     <img src="{{ $v->config_value }}" class="config-img" alt="">
