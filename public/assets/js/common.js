@@ -135,7 +135,7 @@ function batch(url){
         }
     })
     myConfirm("是否继续批量操作?",function(){
-        myRequest(url+ids,"get",{},function(res){
+        myRequest(url+ids,"post",{},function(res){
             layer.msg(res.msg)
             setTimeout(function(){
                 window.location.reload();
