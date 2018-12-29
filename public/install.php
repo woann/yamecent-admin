@@ -209,7 +209,7 @@ if (!$errInfo && isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']
 <script src="/assets/js/off-canvas.js"></script>
 <script src="/assets/js/misc.js"></script>
 <script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-<script src="/layer/layer.js"></script>
+<script src="/assets/layer/layer.js"></script>
 <script src="/assets/js/common.js"></script>
 </body>
 

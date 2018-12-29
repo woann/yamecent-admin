@@ -50,7 +50,7 @@
   <script src="/assets/js/off-canvas.js"></script>
   <script src="/assets/js/misc.js"></script>
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-  <script src="/layer/layer.js"></script>
+  <script src="/assets/layer/layer.js"></script>
   <script src="/assets/js/common.js"></script>
 </body>
 <script>
