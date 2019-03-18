@@ -35,8 +35,8 @@
                                     <label for="exampleInputPassword4">*上级菜单</label>
                                     <select class="form-control required" name="pid" >
                                         <option value="0">顶级菜单</option>
-                                        @foreach($parent_menu as $k=>$v)
-                                            <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                        @foreach($top_menu as $menu)
+                                            <option value="{{ $menu->id }}">{{ $menu->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -54,11 +54,11 @@
                                         </label>
                                     </div>
                                     <br>
-                                    @foreach($role_list as $k=>$v)
+                                    @foreach($roles as $role)
                                         <div class="form-check col-md-2 col-sm-2" style="display: inline-block;">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input role" value="{{ $v->id }}">
-                                                {{ $v->name }}
+                                                <input type="checkbox" class="form-check-input role" value="{{ $role->id }}">
+                                                {{ $role->name }}
                                                 <i class="input-helper"></i>
                                             </label>
                                         </div>
@@ -96,7 +96,7 @@
             $('.role:checked').each(function(index){
                 roles[index] = $(this).val();
             })
-            data.role = roles;
+            data.roles = roles;
             myRequest("/admin/menu/add","post",data,function(res){
                 layer.msg(res.msg)
                 if(res.code == 200){

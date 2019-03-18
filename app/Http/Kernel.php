@@ -51,7 +51,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'rbac' => \App\Http\Middleware\Rbac::class,
+        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'rbac'          => \App\Http\Middleware\Rbac::class,
+        'session.check' => \App\Http\Middleware\CheckSession::class,
+        'install.check' => \App\Http\Middleware\CheckInstall::class,
     ];
 }

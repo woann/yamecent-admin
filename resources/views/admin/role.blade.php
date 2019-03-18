@@ -42,7 +42,7 @@
                                 @foreach($list as $k=>$v)
                                     <tr>
                                         <td>{{ $v->name }}</td>
-                                        <td>{{ $v->des }}</td>
+                                        <td>{{ $v->description }}</td>
                                         <td>{{ $v->created_at }}</td>
                                         <td>{{ $v->updated_at }}</td>
                                         <td>

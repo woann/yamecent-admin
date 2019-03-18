@@ -45,9 +45,9 @@
 
                                 <div class="form-group">
                                     <label for="role">*角色</label>
-                                    <select class="form-control form-control-lg" name="role">
-                                        @foreach($role as $k=>$v)
-                                            <option value="{{$v->id}}">{{$v->name}}</option>
+                                    <select id="roles-selector" class="form-control form-control-lg" multiple="multiple">
+                                        @foreach($roles as $role)
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,6 +78,13 @@
                 return false;
             }
             var data = $("#form").serializeObject();
+            data.roles = []
+            var rolesSelector = document.querySelector('select#roles-selector')
+            for(opt of rolesSelector) {
+                if(opt.selected) {
+                    data.roles.push(opt.value)
+                }
+            }
             myRequest("/admin/administrator/add","post",data,function(res){
                 if(res.code == '200'){
                     layer.msg(res.msg)

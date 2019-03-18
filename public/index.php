@@ -6,20 +6,9 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-ini_set("display_errors","On");
+
 define('LARAVEL_START', microtime(true));
 
-
-//安装文件检测
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT_PATH', __DIR__ . DS . '..' . DS);
-define('APP_PATH', ROOT_PATH . 'app');
-define('INSTALL_PATH', APP_PATH .DS. 'install' . DS);
-$lockFile = INSTALL_PATH . 'install.lock';
-if (!is_file($lockFile))
-{
-    echo '<script>window.location.href="/install.php"</script>';
-}
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -30,9 +19,9 @@ if (!is_file($lockFile))
 | into the script here so that we don't have to worry about manual
 | loading any of our classes later on. It feels great to relax.
 |
-*/
+ */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,9 +33,9 @@ require __DIR__.'/../vendor/autoload.php';
 | will load up this application so that we can run it and send
 | the responses back to the browser and delight our users.
 |
-*/
+ */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +47,8 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | the client's browser allowing them to enjoy the creative
 | and wonderful application we have prepared for them.
 |
-*/
+ */
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(

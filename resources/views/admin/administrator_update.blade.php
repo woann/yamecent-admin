@@ -13,47 +13,47 @@
                                 <div class="form-group">
                                     <label>头像上传</label>
                                     <input type="file" class="file-upload-default img-file" data-path="avatar">
-                                    <input type="hidden" name="avatar" class="image-path" value="{{$res->avatar}}">
+                                    <input type="hidden" name="avatar" class="image-path" value="{{$admin->avatar}}">
                                     <div class="input-group col-xs-12">
-                                        <input type="text" class="form-control file-upload-info" disabled="" value="{{$res->avatar}}">
+                                        <input type="text" class="form-control file-upload-info" disabled="" value="{{$admin->avatar}}">
                                         <span class="input-group-append">
                                             <button class="file-upload-browse btn btn-gradient-primary" onclick="upload($(this))" type="button">上传</button>
                                         </span>
                                     </div>
                                     <div class="img-yl" style="display: block;">
-                                        <img src="{{$res->avatar}}">
+                                        <img src="{{$admin->avatar}}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="nickname">*昵称</label>
-                                    <input type="text"  class="form-control required" name="nickname" value="{{$res->nickname}}">
+                                    <input type="text"  class="form-control required" name="nickname" value="{{$admin->nickname}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="account">*账号</label>
-                                    <input type="text"  class="form-control required" name="account" value="{{$res->account}}">
+                                    <input type="text"  class="form-control required" name="account" value="{{$admin->account}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">*密码</label>
-                                    <input type="password" id="password"  class="form-control required" name="password" value="{{$res->clear_password}}">
+                                    <input type="password" id="password"  class="form-control" name="password" value="{{$admin->clear_password}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">*确认密码</label>
-                                    <input type="password" id="password_verify"  class="form-control required" name="password_verify" value="{{$res->clear_password}}">
+                                    <input type="password" id="password_verify"  class="form-control" name="password_verify" value="{{$admin->clear_password}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="role">*角色</label>
-                                    <select class="form-control form-control-lg" name="role">
-                                        @foreach($role as $k=>$v)
-                                            <option value="{{$v->id}}" @if($v->id == $role_id) selected @endif>{{$v->name}}</option>
+                                    <select id="roles-selector" class="form-control form-control-lg" multiple="multiple">
+                                        @foreach($roles as $role)
+                                            <option value="{{$role->id}}" @if(in_array($role->id, $s_role_id_arr)) selected @endif>{{$role->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <button type="button" onclick="commit({{$res->id}})" class="btn btn-sm btn-gradient-primary btn-icon-text">
+                                <button type="button" onclick="commit({{$admin->id}})" class="btn btn-sm btn-gradient-primary btn-icon-text">
                                     <i class="mdi mdi-file-check btn-icon-prepend"></i>
                                     提交
                                 </button>
@@ -78,6 +78,13 @@
                 return false;
             }
             var data = $("#form").serializeObject();
+            data.roles = []
+            var rolesSelector = document.querySelector('select#roles-selector')
+            for(opt of rolesSelector) {
+                if(opt.selected) {
+                    data.roles.push(opt.value)
+                }
+            }
             myRequest("/admin/administrator/update/"+id,"post",data,function(res){
                 if(res.code == '200'){
                     layer.msg(res.msg)

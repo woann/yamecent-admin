@@ -40,49 +40,52 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($list as $k=>$v)
+                                @foreach($list as $menu)
                                     <tr>
-                                        <td>@if(count($v->child))<i class="mdi mdi-menu-down menu-switch" id="{{$v->id}}" state="on"></i>　@else　　@endif
-                                            <i class="{{ $v->icon }}">　</i>{{ $v->name }}
-                                        </td>
-                                        <td>{{ $v->url }}</td>
                                         <td>
-                                            @foreach($v->role as $kk=>$vv)
-                                                <label class="badge badge-success">{{ $vv->name }}</label>
+                                        @if(count($menu->children))
+                                            <i class="mdi mdi-menu-down menu-switch" id="{{$menu->id}}" state="on"></i>
+                                        @endif
+                                            <i class="{{ $menu->icon }}">　</i>{{ $menu->name }}
+                                        </td>
+                                        <td>{{ $menu->url }}</td>
+                                        <td>
+                                            @foreach($menu->roles as $role)
+                                                <label class="badge badge-success">{{ $role->name }}</label>
                                             @endforeach
                                         </td>
-                                        <td>{{ $v->created_at }}</td>
-                                        <td>{{ $v->updated_at }}</td>
+                                        <td>{{ $menu->created_at }}</td>
+                                        <td>{{ $menu->updated_at }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $v->id }})">
+                                            <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $menu->id }})">
                                                 修改
                                                 <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </button>
-                                            <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $v->id }})">
+                                            <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $menu->id }})">
                                                 <i class="mdi mdi-delete btn-icon-prepend"></i>
                                                 删除
                                             </button>
                                         </td>
                                     </tr>
-                                    @if(count($v->child))
-                                        @foreach($v->child as $key=>$val)
-                                            <tr class="pid-{{ $v->id }}">
-                                                <td>　　　　 {{ $val->name }}</td>
-                                                <td>{{ $val->url }}</td>
+                                    @if(count($menu->children))
+                                        @foreach($menu->children as $childmenu)
+                                            <tr class="pid-{{ $menu->id }}">
+                                                <td>　　　　 {{ $childmenu->name }}</td>
+                                                <td>{{ $childmenu->url }}</td>
                                                 <td>
-                                                    @foreach($val->role as $kkk=>$vvv)
-                                                        <label class="badge badge-success">{{ $vvv->name }}</label>
+                                                    @foreach($childmenu->roles as $role)
+                                                        <label class="badge badge-success">{{ $role->name }}</label>
 
                                                     @endforeach
                                                 </td>
-                                                <td>{{ $val->created_at }}</td>
-                                                <td>{{ $v->updated_at }}</td>
+                                                <td>{{ $childmenu->created_at }}</td>
+                                                <td>{{ $menu->updated_at }}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $val->id }})">
+                                                    <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $childmenu->id }})">
                                                         修改
                                                         <i class="mdi mdi-file-check btn-icon-append"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $val->id }})">
+                                                    <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $childmenu->id }})">
                                                         <i class="mdi mdi-delete btn-icon-prepend"></i>
                                                         删除
                                                     </button>
