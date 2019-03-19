@@ -182,7 +182,7 @@
         </li>
           @endif
         @foreach($menu as $k=>$v)
-          @if($v->has_child)
+          @if($v->hasChild)
                   <li class="nav-item">
                       <a class="nav-link" data-toggle="collapse" href="#system-pages-{{$v->id}}" aria-expanded="false" aria-controls="general-pages">
                           <span class="menu-title">{{ $v->name }}</span>
@@ -191,7 +191,7 @@
                       </a>
                       <div class="collapse" id="system-pages-{{$v->id}}">
                           <ul class="nav flex-column sub-menu">
-                              @foreach($v->child as $key=>$val)
+                              @foreach($v->children as $key=>$val)
                               <li class="nav-item"> <a class="nav-link" target="main" href="{{ $val->url }}">{{ $val->name }}</a></li>
                               @endforeach
                           </ul>

@@ -40,21 +40,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($list as $k=>$v)
+                                @foreach($admins as $admin)
                                     <tr>
-                                        <td>{{ $v->id }}</td>
+                                        <td>{{ $admin->id }}</td>
                                         <td>
-                                            <img class="avatar" src="{{ $v->avatar ?? "" }}" alt="image">
+                                        @if($admin->avatar)
+                                            <img class="avatar" src="{{ $admin->avatar ?? "" }}" alt="image">
+                                        @endif
                                         </td>
-                                        <td>{{ $v->nickname }}</td>
-                                        <td>{{ $v->account }}</td>
-                                        <td>{{ $v->role }}</td>
+                                        <td>{{ $admin->nickname }}</td>
+                                        <td>{{ $admin->account }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $v->id }})">
+                                        @foreach($admin->roles as $role)
+                                            {{ $role->name }}
+                                        @endforeach
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $admin->id }})">
                                                 修改
                                                 <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </button>
-                                            <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $v->id }})">
+                                            <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $admin->id }})">
                                                 <i class="mdi mdi-delete btn-icon-prepend"></i>
                                                 删除
                                             </button>

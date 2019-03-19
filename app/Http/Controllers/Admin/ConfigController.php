@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use App\AdminConfig;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+
 class ConfigController extends Controller
 {
     /**
@@ -14,9 +15,9 @@ class ConfigController extends Controller
      */
     public function configList(Request $request)
     {
-        $wd = $request->input('wd');
-        $list = DB::table('admin_config')->where("config_key","like","%{$wd}%")->orWhere("name","like","%{$wd}%")->paginate(10);
-        return view('admin.config',['list'=>$list,"wd"=>$wd]);
+        $wd   = $request->input('wd');
+        $list = AdminConfig::searchCondition($wd)->paginate(10);
+        return view('admin.config', ['list' => $list, 'wd' => $wd]);
     }
 
     /**
@@ -25,20 +26,17 @@ class ConfigController extends Controller
      * @param Request $request
      * @return \Illuminate\View\View
      */
+    public function configAddView(Request $request)
+    {
+        return view('admin.config_add');
+    }
+
     public function configAdd(Request $request)
     {
-        if($request->isMethod("POST")){
-            $data = $request->post();
-            $data['created_at'] = date("Y-m-d H:i:s");
-            $data['updated_at'] = date("Y-m-d H:i:s");
-            $res = DB::table('admin_config')->insert($data);
-            if(!$res){
-                return $this->json(500,'添加失败');
-            }
-            return $this->json(200,'添加成功');
-        }else{
-            return view("admin.config_add");
-        }
+        $data   = $request->post();
+        $config = new AdminConfig();
+        $config->fill($data)->save();
+        return $this->json(200, '添加成功');
     }
 
     /**
@@ -48,20 +46,18 @@ class ConfigController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function configUpdate(Request $request,$id)
+    public function configUpdateView(Request $request, $id)
     {
-        if($request->isMethod("POST")){
-            $data = $request->post();
-            $data['updated_at'] = date("Y-m-d H:i:s");
-            $res = DB::table('admin_config')->where('id',$id)->update($data);
-            if(!$res){
-                return $this->json(500,'修改失败');
-            }
-            return $this->json(200,'修改成功');
-        }else{
-            $res = DB::table("admin_config")->find($id);
-            return view("admin.config_update",["res"=>$res]);
-        }
+        return view('admin.config_update', ['config' => AdminConfig::findOrFail($id)]);
+    }
+
+    public function configUpdate(Request $request, $id)
+    {
+        $config = AdminConfig::findOrFail($id);
+        $data   = $request->post();
+        $config->fill($data);
+        $config->save();
+        return $this->json(200, '修改成功');
     }
 
     /**
@@ -72,10 +68,7 @@ class ConfigController extends Controller
      */
     public function configDel($id)
     {
-        $res = DB::table('admin_config')->delete($id);
-        if(!$res){
-            return $this->json(500,'删除失败');
-        }
-        return $this->json(200,'删除成功');
+        AdminConfig::findOrFail($id)->delete();
+        return $this->json(200, '删除成功');
     }
 }

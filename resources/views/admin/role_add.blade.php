@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label >角色描述</label>
-                                    <textarea class="form-control" name="des" rows="4"></textarea>
+                                    <textarea class="form-control" name="description" rows="4"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check col-md-1 col-sm-1" style="display: inline-block;">
@@ -34,11 +34,11 @@
                                         </label>
                                     </div>
                                     <br>
-                                    @foreach($permission_list as $k=>$v)
+                                    @foreach($permissions as $permission)
                                         <div class="form-check col-md-2 col-sm-2" style="display: inline-block;">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input permission" value="{{ $v->id }}">
-                                                {{ $v->name }}
+                                                <input type="checkbox" class="form-check-input permission" value="{{ $permission->id }}">
+                                                {{ $permission->name }}
                                                 <i class="input-helper"></i>
                                             </label>
                                         </div>
@@ -77,7 +77,7 @@
             $('.permission:checked').each(function(index){
                 permissions[index] = $(this).val();
             })
-            data.permission = permissions;
+            data.permissions = permissions;
             myRequest("/admin/role/add","post",data,function(res){
                 layer.msg(res.msg)
                 setTimeout(function(){

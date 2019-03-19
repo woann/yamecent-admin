@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Config;
 
 class Handler extends ExceptionHandler
 {
@@ -46,20 +47,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        $debug = env("APP_DEBUG");
-        if(!$debug){
-            if($request->ajax()){
+        if (Config::get('app.debug') === false) {
+            if ($request->ajax()) {
                 $message = $exception->getMessage();
-                $line = $exception->getLine();
-                $file = $exception->getFile();
-                $code = $exception->getCode();
-                return response()->json(['code'=>500,'msg'=>'请求发生错误!','data'=>[
-                    'code' => $code,
-                    'line' => $line,
-                    'file' => $file,
+                $line    = $exception->getLine();
+                $file    = $exception->getFile();
+                $code    = $exception->getCode();
+                return response()->json(['code' => 500, 'msg' => '请求发生错误!', 'data' => [
+                    'code'    => $code,
+                    'line'    => $line,
+                    'file'    => $file,
                     'message' => $message,
                 ]]);
-            }else{
+            } else {
                 return response()->view('base.404');
             }
         }

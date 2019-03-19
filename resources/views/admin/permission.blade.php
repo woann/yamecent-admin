@@ -40,23 +40,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($list as $k=>$v)
+                                @foreach($list as $permission)
                                     <tr>
-                                        <td>{{ $v->id }}</td>
-                                        <td>{{ $v->name }}</td>
+                                        <td>{{ $permission->id }}</td>
+                                        <td>{{ $permission->name }}</td>
                                         <td style="word-wrap:break-word;word-break:break-all">
-                                            @foreach($v->route as $i => $j)
-                                                <label class="badge badge-success">{{$j}}</label>
+                                            @foreach($permission->routes as $route)
+                                                <label class="badge badge-success">{{$route}}</label>
                                             @endforeach
                                         </td>
-                                        <td>{{ $v->created_at }}</td>
-                                        <td>{{ $v->updated_at }}</td>
+                                        <td>{{ $permission->created_at }}</td>
+                                        <td>{{ $permission->updated_at }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $v->id }})">
+                                            <button type="button" class="btn btn-sm btn-gradient-dark btn-icon-text" onclick="update({{ $permission->id }})">
                                                 修改
                                                 <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </button>
-                                            <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $v->id }})">
+                                            <button type="button" class="btn btn-sm btn-gradient-danger btn-icon-text" onclick="del({{ $permission->id }})">
                                                 <i class="mdi mdi-delete btn-icon-prepend"></i>
                                                 删除
                                             </button>

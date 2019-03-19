@@ -18,11 +18,10 @@
                                     <input type="text" class="form-control" id="name" placeholder="请输入权限名">
                                 </div>
 
-
                                 <div class="form-group" style="width: 100%;height: 200px;">
                                     <select class="form-control" id="selectL" name="selectL" multiple="multiple" style="width:40%;height:200px;float: left">
-                                        @foreach($path as $k=>$v)
-                                            <option value="{{$v}}">{{$v}}</option>
+                                        @foreach($routes as $route)
+                                            <option value="{{$route->uri}}">{{$route->uri}}</option>
                                         @endforeach
                                     </select>
 
@@ -82,8 +81,11 @@
             rightSel.find("option").each(function(){
                 selVal.push(this.value);
             });
-            selVals = selVal.join(",");
-            if(selVals==""){
+            // selVals = selVal.join(",");
+            // if(selVals==""){
+            //     layer.msg('请选择路由', function(){});
+            // }
+            if (selVal.length === 0) {
                 layer.msg('请选择路由', function(){});
             }
             var name = $("#name").val();
@@ -92,7 +94,7 @@
             }
             var data = {
                 'name':name,
-                'route':selVals,
+                'routes':selVal,
             };
             myRequest("/admin/permission/add","post",data,function(res){
                 if(res.code == '200'){

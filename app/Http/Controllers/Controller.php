@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -18,20 +18,20 @@ class Controller extends BaseController
      * @return mixed
      * @description 接口返回数据格式
      */
-    protected function json($code = 200,$msg = '',$data = [])
+    protected function json($code = 200, $msg = '', $data = [])
     {
         if ($data == []) {
             $res = [
-                'code'  =>$code,
-                'msg'   =>$msg,
+                'code' => $code,
+                'msg'  => $msg,
             ];
-        }else{
+        } else {
             $res = [
-                'code'  =>$code,
-                'msg'   =>$msg,
-                'data'  =>$data
+                'code' => $code,
+                'msg'  => $msg,
+                'data' => $data,
             ];
         }
-        return response()->json($res)->header('Content-Type', 'text/html; charset=UTF-8');
+        return response()->json($res)->header('Content-Type', 'application/json; charset=UTF-8');
     }
 }

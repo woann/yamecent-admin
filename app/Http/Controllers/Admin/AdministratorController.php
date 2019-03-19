@@ -7,9 +7,14 @@
  */
 namespace App\Http\Controllers\Admin;
 
+use App\AdminMenu;
+use App\AdminPermission;
+use App\AdminRole;
+use App\AdminUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Collection;
+
 class AdministratorController extends Controller
 {
     /**
@@ -19,31 +24,8 @@ class AdministratorController extends Controller
      */
     public function menuList()
     {
-        //获取一级菜单
-        $list = DB::table('admin_menu')
-            ->where('pid',0)
-            ->orderBy('sort','DESC')
-            ->get();
-        foreach ($list as $k=>$v){
-            $list[$k]->role = $this->getMenuRole($v->id);
-            $list[$k]->child = DB::table('admin_menu')
-                ->where('pid',$v->id)
-                ->orderBy('sort','DESC')
-                ->get();
-            foreach ($list[$k]->child as $key=>$val){
-                $list[$k]->child[$key]->role = $this->getMenuRole($val->id);
-            }
-        }
-        return view('admin.menu',['list'=>$list]);
-    }
-
-    public function getMenuRole($menu_id){
-        $list = DB::table('admin_role_menu as rm')
-            ->leftJoin('admin_role as r','r.id','=','rm.role_id')
-            ->select('r.name')
-            ->where('rm.menu_id',$menu_id)
-            ->get();
-        return $list;
+        // 获取一级菜单
+        return view('admin.menu', ['list' => AdminMenu::where('pid', 0)->get()]);
     }
 
     /**
@@ -52,36 +34,29 @@ class AdministratorController extends Controller
      * @param Request $request
      * @return \Illuminate\View\View
      */
+    public function menuAddView(Request $request)
+    {
+        $roles   = AdminRole::get();
+        $topMenu = AdminMenu::where('pid', 0)->get();
+        return view('admin.menu_add', ['roles' => $roles, 'top_menu' => $topMenu]);
+    }
+
     public function menuAdd(Request $request)
     {
-        if($request->isMethod('post')){
-            $data = $request->except(['role','s']);
-            $roles = $request->input('role');
-            if(!count($roles)){
-                return $this->json(500,'未选择任何角色');
-            }
-            $data["created_at"] = date("Y-m-d H:i:s");
-            $data["updated_at"] = date("Y-m-d H:i:s");
-            $menu_id = DB::table('admin_menu')->insertGetId($data);
-            if(!$menu_id){
-                return $this->json(500,'添加失败');
-            }
-            $data = [];
-            foreach ($roles as $k=>$v){
-                $data[$k]["menu_id"] = $menu_id;
-                $data[$k]["role_id"] = $v;
-            }
-            $res = DB::table('admin_role_menu')->insert($data);
-            if(!$res){
-                DB::table('admin_menu')->where('id',$menu_id)->delete();
-                return $this->json(500,'添加失败');
-            }
-            return $this->json(200,'添加成功');
-        }else{
-            $role_list = DB::table('admin_role')->get();
-            $parent_menu = DB::table('admin_menu')->where('pid',0)->orderBy('sort','DESC')->get();
-            return view('admin.menu_add',['role_list'=>$role_list,'parent_menu'=>$parent_menu]);
+        $data  = $request->except(['role', 's']);
+        $roles = new Collection($request->input('roles'));
+        if ($roles->isEmpty()) {
+            return $this->json(500, '未选择任何角色');
         }
+        $menu = new AdminMenu();
+        $menu->fill($data);
+        $menu->save();
+        // 保存菜单所属角色
+        $roles->map(function ($roleId) use ($menu) {
+            $role = AdminRole::find($roleId);
+            $menu->roles()->attach($role);
+        });
+        return $this->json(200, '添加成功');
     }
 
     /**
@@ -91,47 +66,44 @@ class AdministratorController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function menuUpdate(Request $request,$id)
+    public function menuUpdateView(Request $request, $id)
     {
-        if($request->isMethod('post')){
-            $data = $request->except(['role','s']);
-            $roles = $request->input('role');
-            if(!count($roles)){
-                return $this->json(500,'未选择任何角色');
-            }
-            $data["updated_at"] = date("Y-m-d H:i:s");
-            DB::table('admin_menu')->where('id',$id)->update($data);
-            //删除原有关联数据
-            DB::table('admin_role_menu')->where('menu_id',$id)->delete();
-            $data = [];
-            foreach ($roles as $k=>$v){
-                $data[$k]["menu_id"] = $id;
-                $data[$k]["role_id"] = $v;
-            }
-            //更新关联数据
-            $res = DB::table('admin_role_menu')->insert($data);
-            if(!$res){
-                return $this->json(500,'修改失败');
-            }
-            return $this->json(200,'修改成功');
-        }else{
-            $role_list = DB::table('admin_role')->get();
-            $my_role = DB::table('admin_role_menu')->where('menu_id',$id)->get();
-            $my_role_ids = [];
-            foreach ($my_role as $k=>$v){
-                $my_role_ids[] = $v->role_id;
-            }
-            foreach ($role_list as $k=>$v){
-                if(in_array($v->id,$my_role_ids)){
-                    $role_list[$k]->checked = true;
-                }else{
-                    $role_list[$k]->checked = false;
+        $roles = AdminRole::get();
+        $menu  = AdminMenu::findOrFail($id);
+        $roles->map(function ($role) use ($menu) {
+            $menu->roles->each(function ($mRole) use (&$role) {
+                if ($mRole->id === $role->id) {
+                    $role->checked = true;
                 }
-            }
-            $parent_menu = DB::table('admin_menu')->where('pid',0)->orderBy('sort','DESC')->get();
-            $res = DB::table('admin_menu')->find($id);
-            return view('admin.menu_update',['role_list'=>$role_list,'parent_menu'=>$parent_menu,'res'=>$res]);
+            });
+            return $role;
+        });
+        $topMenu = AdminMenu::where('pid', 0)->get();
+        return view('admin.menu_update', [
+            'roles'    => $roles,
+            'top_menu' => $topMenu,
+            'menu'     => $menu,
+        ]);
+    }
+
+    public function menuUpdate(Request $request, $id)
+    {
+        $menu  = AdminMenu::findOrFail($id);
+        $roles = new Collection($request->input('roles'));
+        if ($roles->isEmpty()) {
+            return $this->json(500, '未选择任何角色');
         }
+        // 基础信息更新
+        $data = $request->except(['role', 's']);
+        $menu->fill($data)->save();
+        // 删除原有关联数据
+        $menu->roles()->detach();
+        // 重新关联数据
+        $roles->each(function ($roleId) use ($menu) {
+            $role = AdminRole::find($roleId);
+            $menu->roles()->attach($role);
+        });
+        return $this->json(200, '修改成功');
     }
 
     /**
@@ -142,18 +114,17 @@ class AdministratorController extends Controller
      */
     public function menuDel($id)
     {
-        $res = DB::table('admin_menu')->delete($id);
-        if(!$res){
-            return $this->json(500,'删除失败');
-        }
-        DB::table('admin_role_menu')->where('menu_id',$id)->delete();
-        return $this->json(200,'删除成功');
+        $menu = AdminMenu::findOrFail($id);
+        $menu->roles()->detach();
+        $menu->delete();
+        return $this->json(200, '删除成功');
     }
 
     public function roleList()
     {
-        $list = DB::table('admin_role')->paginate(10);
-        return view('admin.role',['list'=>$list]);
+        return view('admin.role', [
+            'list' => AdminRole::paginate(10),
+        ]);
     }
 
     /**
@@ -162,34 +133,26 @@ class AdministratorController extends Controller
      * @param Request $request
      * @return \Illuminate\View\View
      */
+    public function roleAddView(Request $request)
+    {
+        return view('admin.role_add', [
+            'permissions' => AdminPermission::get(),
+        ]);
+    }
+
     public function roleAdd(Request $request)
     {
-        if($request->isMethod("POST")){
-            $param = $request->post();
-            $data = [];
-            $data["name"] = $param['name'];
-            $data["des"] = $param['des'];
-            $data["created_at"] = date("Y-m-d H:i:s");
-            $data["updated_at"] = date("Y-m-d H:i:s");
-            $role_id = DB::table('admin_role')->insertGetId($data);
-            if(!$role_id){
-                return $this->json(500,"添加失败");
-            }
-            $data = [];
-            foreach ($param["permission"] as $k=>$v){
-                $data[$k]["role_id"] = $role_id;
-                $data[$k]["permission_id"] = $v;
-            }
-            $res = DB::table('admin_role_permission')->insert($data);
-            if(!$res){
-                DB::table('admin_role')->delete($role_id);
-                return $this->json(500,"添加失败");
-            }
-            return $this->json(200,"添加成功");
-        }else{
-            $permission_list = DB::table('admin_permission')->get();
-            return view('admin.role_add',['permission_list'=>$permission_list]);
+        $param = $request->post();
+        $role  = new AdminRole();
+        $role->fill($param);
+        $role->save();
+        if (isset($param['permissions'])) {
+            (new Collection($param['permissions']))->map(function ($permissionId) use ($role) {
+                $permission = AdminPermission::find($permissionId);
+                $role->permissions()->attach($permission);
+            });
         }
+        return $this->json(200, "添加成功");
     }
 
     /**
@@ -199,43 +162,40 @@ class AdministratorController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function roleUpdate(Request $request,$id)
+    public function roleUpdateView(Request $request, $id)
     {
-        if($request->isMethod("POST")){
-            $param = $request->post();
-            $data = [];
-            $data["name"] = $param['name'];
-            $data["des"] = $param['des'];
-            $data["updated_at"] = date("Y-m-d H:i:s");
-            DB::table('admin_role')->where('id',$id)->update($data);
-            $data = [];
-            foreach ($param["permission"] as $k=>$v){
-                $data[$k]["role_id"] = $id;
-                $data[$k]["permission_id"] = $v;
-            }
-            DB::table('admin_role_permission')->where('role_id',$id)->delete();
-            $res = DB::table('admin_role_permission')->insert($data);
-            if(!$res){
-                return $this->json(500,"修改失败");
-            }
-            return $this->json(200,"修改成功");
-        }else{
-            $res = DB::table('admin_role')->find($id);
-            $my_permission = DB::table('admin_role_permission')->select('permission_id')->where('role_id',$id)->get();
-            $permission_list = DB::table('admin_permission')->get();
-            $my_permission_ids = [];
-            foreach ($my_permission as $k=>$v){
-                $my_permission_ids[] = $v->permission_id;
-            }
-            foreach ($permission_list as $k=>$v){
-               if(in_array($v->id,$my_permission_ids)){
-                   $permission_list[$k]->checked = true;
-               }else{
-                   $permission_list[$k]->checked = false;
-               }
-            }
-            return view('admin.role_update',['res'=>$res,'permission_list'=>$permission_list]);
+        $role        = AdminRole::findOrFail($id);
+        $permissions = AdminPermission::get();
+        $permissions->map(function ($permission) use ($role) {
+            $permission->checked = false;
+            $role->permissions->each(function ($rPermission) use ($role, &$permission) {
+                if ($rPermission->id === $permission->id) {
+                    $permission->checked = true;
+                    return false;
+                }
+            });
+            return $permission;
+        });
+        return view('admin.role_update', ['role' => $role, 'permissions' => $permissions]);
+    }
+
+    public function roleUpdate(Request $request, $id)
+    {
+        $param = $request->post();
+        $role  = AdminRole::findOrFail($id);
+        $role->fill($param);
+        $role->save();
+        // 删除所有权限关联
+        $role->permissions()->detach();
+        // 录入权限关联
+        if (isset($param['permissions'])) {
+            (new Collection($param['permissions']))->map(function ($permissionId) use ($role) {
+                $permission = AdminPermission::find($permissionId);
+                $role->permissions()->attach($permission);
+            });
         }
+        return $this->json(200, "修改成功");
+
     }
 
     /**
@@ -246,63 +206,53 @@ class AdministratorController extends Controller
      */
     public function roleDel($id)
     {
-        if($id == 1){
-            return $this->json(500,'超级管理员不可删除');
+        if ($id == 1) {
+            return $this->json(500, '超级管理员不可删除');
         }
-        $res = DB::table('admin_role')->delete($id);
-        if(!$res){
-            //删除该角色和权限的关联
-            DB::table('admin_role_permission')->where('role_id',$id)->delete();
-            //删除角色和管理员的关联
-            DB::table('admin_user_role')->where('role_id',$id)->delete();
-            return $this->json(500,'删除失败');
-        }
-        return $this->json(200,'删除成功');
+        $role = AdminRole::findOrFail($id);
+        // 删除所有多对多关系
+        $role->users()->detach();
+        $role->menus()->detach();
+        $role->permissions()->detach();
+        $role->delete();
+        return $this->json(200, '删除成功');
     }
     /**
      * @return mixed
      * 权限列表
      */
-    public function permissionList(){
-        $list = DB::table('admin_permission')->get();
-        if(count($list)){
-            foreach ($list as $k => $v){
-                $list[$k]->route = explode(',',$v->route);
-            }
-        }
-        return view('admin.permission',['list'=>$list]);
+    public function permissionList()
+    {
+        return view('admin.permission', [
+            'list' => AdminPermission::get(),
+        ]);
     }
-
 
     /**
      * @param Request $request
      * @return mixed
      * 添加权限
      */
-    public function permissionAdd(Request $request){
-
-        if($request->isMethod('post')){
-            //添加数据
-            $data = $request->post();
-            $time = date("Y-m-d H:i:s");
-            $data["created_at"] = $time;
-            $data["updated_at"] = $time;
-            $res = DB::table('admin_permission')->insert($data);
-            if(!$res){
-                return $this->json(500,'添加失败');
-            }
-            return $this->json(200,'添加成功');
-        }else{
-            //渲染页面
-            $app = app();
-            $routes = $app->routes->getRoutes();
-            foreach ($routes as $k=>$value){
-                $path[$k] = $value->uri;
-            }
-            return view('admin.permission_add',['path'=>$path]);
-        }
+    public function permissionAddView(Request $request)
+    {
+        //渲染页面
+        $routes = new Collection(app()->routes->getRoutes());
+        return view('admin.permission_add', [
+            'routes' => $routes->filter(function ($route) {
+                $actions = $route->getAction();
+                return isset($actions['as']) && $actions['as'] === 'rbac';
+            }),
+        ]);
     }
 
+    public function permissionAdd(Request $request)
+    {
+        $data       = $request->post();
+        $permission = new AdminPermission();
+        $permission->fill($data);
+        $permission->save();
+        return $this->json(200, '添加成功');
+    }
 
     /**
      * @param Request $request
@@ -310,176 +260,176 @@ class AdministratorController extends Controller
      * @return mixed
      * 修改权限
      */
-    public function permissionUpdate(Request $request,$id){
-        if($request->isMethod('post')){
-            $data = $request->post();
-            $data["updated_at"] = date("Y-m-d H:i:s");
-            $res = DB::table('admin_permission')->where('id',$id)->update($data);
-            if(!$res){
-                return $this->json(500,'修改失败');
+    public function permissionUpdateView(Request $request, $id)
+    {
+        $permission = AdminPermission::findOrFail($id);
+        $routes     = new Collection(app()->routes->getRoutes());
+        $rbacRoutes = $routes->filter(function ($route) {
+            $actions = $route->getAction();
+            return isset($actions['as']) && $actions['as'] === 'rbac';
+        });
+        $checkRoutes = $permission->routes->map(function ($route) {
+            $routeObj      = new \StdClass();
+            $routeObj->uri = $route;
+            return $routeObj;
+        });
+        $uncheckRoutes = new Collection();
+        $rbacRoutes->each(function ($route) use ($permission, $checkRoutes, &$uncheckRoutes) {
+            $uncheckFlag = true;
+            $checkRoutes->each(function ($checkRoute) use ($route, &$uncheckFlag) {
+                if ($route->uri === $checkRoute->uri) {
+                    $uncheckFlag = false;
+                }
+            });
+            if ($uncheckFlag) {
+                $uncheckRoutes->push($route);
             }
-            return $this->json(200,'修改成功');
-        }else{
-            $app = app();
-            $routes = $app->routes->getRoutes();
-            foreach ($routes as $k=>$value){
-                $path[$k] = $value->uri;
-            }
-            $res = DB::table('admin_permission')->find($id);
-            $right_arr = explode(',',$res->route);
-            $left_arr = array_diff($path,$right_arr);
-            return view('admin.permission_update',['res'=>$res,'left_arr'=>$left_arr,'rignt_arr'=>$right_arr]);
-        }
+        });
+        return view('admin.permission_update', [
+            'permission'     => $permission,
+            'uncheck_routes' => $uncheckRoutes,
+            'check_routes'   => $checkRoutes,
+        ]);
     }
 
+    public function permissionUpdate(Request $request, $id)
+    {
+        $data       = $request->post();
+        $permission = AdminPermission::findOrFail($id);
+        $permission->fill($data);
+        $permission->save();
+        return $this->json(200, '修改成功');
+
+    }
 
     /**
      * @return mixed
      * 删除权限
      */
-    public function permissionDel($id){
-        $res = DB::table('admin_permission')->delete($id);
-        if(!$res){
-            return $this->json(500,'删除失败');
-        }
-        DB::table('admin_role_permission')->where('permission_id',$id)->delete();
-        return $this->json(200,'删除成功');
+    public function permissionDel($id)
+    {
+        $permission = AdminPermission::findOrFail($id);
+        // 解除所有多对多关系
+        $permission->roles()->detach();
+        $permission->delete();
+        return $this->json(200, '删除成功');
     }
-
 
     /**
      * @return mixed
      * 管理员列表
      */
-    public function administratorList(){
-        $list = DB::table('admin_user as au')
-            ->leftJoin('admin_user_role as aur','au.id','=','aur.admin_user_id')
-            ->leftJoin('admin_role as ar','ar.id','=','aur.role_id')
-            ->select('au.*','ar.name as role')
-            ->get();
-        return view('admin.administrator',['list'=>$list]);
+    public function administratorList()
+    {
+        return view('admin.administrator', [
+            'admins' => AdminUser::paginate(10),
+        ]);
     }
-
 
     /**
      * @param Request $request
      * @return mixed
      * 添加管理员
      */
-    public function administratorAdd(Request $request){
-        if($request->isMethod('post')){
-            $post = $request->post();
-            $count = DB::table('admin_user')->where('account',$post['account'])->count();
-            if($count){
-                return $this->json(500,'该账号已存在');
-            }
-            $data = [
-                'avatar'=>$post['avatar'],
-                'nickname'=>$post['nickname'],
-                'account'=>$post['account'],
-                'clear_password'=>$post['password'],
-                'password'=>password_hash($post['password'], PASSWORD_DEFAULT),
-            ];
-            $id = DB::table('admin_user')->insertGetId($data);
-            if(!$id){
-                return $this->json(500,'管理员添加失败');
-            }
-            $user_role = [
-                'admin_user_id'=>$id,
-                'role_id'=>$post['role'],
-            ];
-            $res = DB::table('admin_user_role')->insert($user_role);
-            if(!$res){
-                return $this->json(500,'管理员角色添加失败');
-            }
-            return $this->json(200,'添加成功');
-        }else{
-            $role = DB::table('admin_role')->select('id','name')->get();
-            return view('admin.administrator_add',['role'=>$role]);
+    public function administratorAddView(Request $request)
+    {
+        $roles = AdminRole::select('id', 'name')->get();
+        return view('admin.administrator_add', ['roles' => $roles]);
+    }
+    public function administratorAdd(Request $request)
+    {
+        $post  = $request->post();
+        $roles = (new Collection($request->post('roles')));
+        if (AdminUser::isExist($post['account'])) {
+            return $this->json(500, '该账号已存在');
         }
+        $admin = new AdminUser();
+        $admin->fill($post);
+        $admin->save();
+        $roles->map(function ($roleId) use ($admin) {
+            $role = AdminRole::find($roleId);
+            $admin->roles()->attach($role);
+        });
+        return $this->json(200, '添加成功');
     }
 
+    public function administratorUpdateView(Request $request, $id)
+    {
+        $roles           = AdminRole::select('id', 'name')->get();
+        $admin           = AdminUser::findOrFail($id);
+        $selectRoleIdArr = [];
+        $admin->roles->map(function ($role) use (&$selectRoleIdArr) {
+            $selectRoleIdArr[] = $role->id;
+        });
+        return view('admin.administrator_update', [
+            'admin'         => $admin,
+            'roles'         => $roles,
+            's_role_id_arr' => $selectRoleIdArr,
+        ]);
+    }
 
-    public function administratorUpdate(Request $request,$id){
-        if($request->isMethod('post')){
-            $post = $request->post();
-            $count = DB::table('admin_user')
-                ->where('id','!=',$id)
-                ->where('account',$post['account'])
-                ->count();
-            if($count){
-                return $this->json(500,'该账号已存在');
-            }
-            $data = [
-                'avatar'=>$post['avatar'],
-                'nickname'=>$post['nickname'],
-                'account'=>$post['account'],
-                'clear_password'=>$post['password'],
-                'password'=>password_hash($post['password'], PASSWORD_DEFAULT),
-            ];
-            DB::table('admin_user')->where('id',$id)->update($data);
-            $user_role = [
-                'admin_user_id'=>$id,
-                'role_id'=>$post['role'],
-            ];
-            DB::table('admin_user_role')->where('admin_user_id',$id)->update($user_role);
-            return $this->json(200,'修改成功');
-        }else{
-            $role = DB::table('admin_role')->select('id','name')->get();
-            $res = DB::table('admin_user')->find($id);
-            $user_role = DB::table('admin_user_role')->select('role_id')->where('admin_user_id',$id)->first();
-            if($user_role){
-                $user_role_id = $user_role->role_id;
-            }else{
-                $user_role_id = 0;
-            }
-            return view('admin.administrator_update',['res'=>$res,'role'=>$role,'role_id'=>$user_role_id]);
+    public function administratorUpdate(Request $request, $id)
+    {
+        $post  = $request->post();
+        $roles = (new Collection($request->post('roles')));
+        $admin = AdminUser::findOrFail($id);
+        if ($admin->isExistForUpdate($post['account'])) {
+            return $this->json(500, '该账号已存在');
         }
+        $admin->fill($post)->save();
+        // 删除用户的所有关联角色
+        $admin->roles()->detach();
+        $roles->map(function ($roleId) use ($admin) {
+            $role = AdminRole::find($roleId);
+            $admin->roles()->attach($role);
+        });
+        return $this->json(200, '修改成功');
+
     }
 
     /**
      * @return mixed
      * 删除管理员
      */
-    public function administratorDel($id){
-        $res = DB::table('admin_user')->delete($id);
-        if(!$res){
-            return $this->json(500,'删除失败');
-        }
-        //删除关联
-        DB::table('admin_user_role')->where('admin_user_id',$id)->delete();
-        return $this->json(200,'删除成功');
+    public function administratorDel($id)
+    {
+        $admin = AdminUser::findOrFail($id);
+        // 解除管理员角色多对多关系
+        $admin->roles()->detach();
+        $admin->delete();
+        return $this->json(200, '删除成功');
     }
-
 
     /**
      * @param Request $request
      * @return mixed
      * 后台登录
      */
-    public function login(Request $request){
-        if($request->isMethod('post')){
-            $post = $request->post();
-            if(empty($post['account'])){
-                return $this->json(500,'请输入账号!');
-            }
-            if(empty($post['password'])){
-                return $this->json(500,'请输入密码!');
-            }
-            $admin = DB::table('admin_user')->where('account', $post['account'])->first();
-            if(empty($admin)){
-                return $this->json(500,'账号不存在!');
-            }
-            if(!password_verify ( $post['password'] , $admin->password)){
-                return $this->json(500,'密码输入不正确!');
-            };
-            $request->session()->put('admin', $admin);
-            return $this->json(200,'登录成功!');
-        }else{
-            return view('admin.login');
-        }
+    public function login(Request $request)
+    {
+        return view('admin.login');
     }
 
+    public function checkLogin(Request $request)
+    {
+        $post = $request->post();
+        if (empty($post['account'])) {
+            return $this->json(500, '请输入账号!');
+        }
+        if (empty($post['password'])) {
+            return $this->json(500, '请输入密码!');
+        }
+        $admin = AdminUser::where('account', $post['account'])->first();
+        if (empty($admin)) {
+            return $this->json(500, '账号不存在!');
+        }
+        if (!password_verify($post['password'], $admin->password)) {
+            return $this->json(500, '密码输入不正确!');
+        }
+        $request->session()->put('admin', $admin);
+        return $this->json(200, '登录成功!');
+
+    }
 
     /**
      * @param Request $request
@@ -487,35 +437,28 @@ class AdministratorController extends Controller
      * @return mixed
      * 修改信息
      */
-    public function editInfo(Request $request,$id){
-        if($request->isMethod('post')){
-            $post = $request->post();
-            $data = [
-                'avatar'=>$post['avatar'],
-                'nickname'=>$post['nickname'],
-                'clear_password'=>$post['password'],
-                'password'=>password_hash($post['password'], PASSWORD_DEFAULT),
-            ];
-            $res = DB::table('admin_user')->where('id',$id)->update($data);
-            if(!$res){
-                return $this->json(500,'修改失败');
-            }
-            $admin = DB::table('admin_user')->where('id',$id)->first();
-            $request->session()->put('admin', $admin);
-            return $this->json(200,'修改成功');
-        }else{
-            $res = DB::table('admin_user')->find($id);
-            return view('admin.edit_info',['res'=>$res]);
-        }
+    public function editInfoView(Request $request, $id)
+    {
+        return view('admin.edit_info', ['admin' => AdminUser::findOrFail($id)]);
     }
 
+    public function editInfo(Request $request, $id)
+    {
+        $post  = $request->post();
+        $admin = AdminUser::findOrFail($id);
+        $admin->fill($post);
+        $admin->save();
+        $request->session()->put('admin', $admin);
+        return $this->json(200, '修改成功');
+    }
 
     /**
      * @param Request $request
      * @return mixed
      * 退出登录
      */
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request->session()->flush();
         return redirect('/login');
     }

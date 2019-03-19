@@ -14,29 +14,29 @@
                             <form class="forms-sample" id="form">
                                 <div class="form-group">
                                     <label for="exampleInputName1">菜单名称</label>
-                                    <input type="text"  class="form-control required" name="name" placeholder="菜单名称" value="{{ $res->name }}">
+                                    <input type="text"  class="form-control required" name="name" placeholder="菜单名称" value="{{ $menu->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail3">菜单链接</label>
-                                    <input type="text"  class="form-control required" name="url" placeholder="菜单链接" value="{{ $res->url }}">
+                                    <input type="text"  class="form-control required" name="url" placeholder="菜单链接" value="{{ $menu->url }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail3">菜单图标</label>
-                                    <input type="text"  class="form-control" name="icon" placeholder="菜单图标对应class值,二级菜单留空即可" value="{{ $res->icon }}">
+                                    <input type="text"  class="form-control" name="icon" placeholder="菜单图标对应class值,二级菜单留空即可" value="{{ $menu->icon }}">
                                     <p class="card-description">
                                         点击查看<a href="/icon" target="_blank">图标库</a>
                                     </p>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail3">权重</label>
-                                    <input type="text"  class="form-control required" name="sort" placeholder="权重 数字越大,排名越靠前" value="{{ $res->sort }}">
+                                    <input type="text"  class="form-control required" name="sort" placeholder="权重 数字越大,排名越靠前" value="{{ $menu->sort }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword4">上级菜单</label>
                                     <select class="form-control required" name="pid" >
-                                        <option value="0" @if($res->pid == 0) selected @endif>顶级菜单</option>
-                                        @foreach($parent_menu as $k=>$v)
-                                            <option @if($res->pid == $v->id) selected @endif value="{{ $v->id }}">{{ $v->name }}</option>
+                                        <option value="0" @if($menu->pid == 0) selected @endif>顶级菜单</option>
+                                        @foreach($top_menu as $tMenu)
+                                            <option @if($menu->pid == $tMenu->id) selected @endif value="{{ $tMenu->id }}">{{ $tMenu->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -54,17 +54,17 @@
                                         </label>
                                     </div>
                                     <br>
-                                    @foreach($role_list as $k=>$v)
+                                    @foreach($roles as $role)
                                         <div class="form-check col-md-2 col-sm-2" style="display: inline-block;">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input role" value="{{ $v->id }}" @if($v->checked) checked @endif>
-                                                {{ $v->name }}
+                                                <input type="checkbox" class="form-check-input role" value="{{ $role->id }}" @if($role->checked) checked @endif>
+                                                {{ $role->name }}
                                                 <i class="input-helper"></i>
                                             </label>
                                         </div>
                                     @endforeach
                                 </div>
-                                <button type="button" onclick="commit({{ $res->id }})" class="btn btn-sm btn-gradient-primary btn-icon-text">
+                                <button type="button" onclick="commit({{ $menu->id }})" class="btn btn-sm btn-gradient-primary btn-icon-text">
                                     <i class="mdi mdi-file-check btn-icon-prepend"></i>
                                     提交
                                 </button>
@@ -96,7 +96,7 @@
             $('.role:checked').each(function(index){
                 roles[index] = $(this).val();
             })
-            data.role = roles;
+            data.roles = roles;
             myRequest("/admin/menu/update/"+id,"post",data,function(res){
                 layer.msg(res.msg)
                 setTimeout(function(){

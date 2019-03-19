@@ -8,21 +8,20 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">添加权限</h4>
+                            <h4 class="card-title">修改权限</h4>
                             <p class="card-description">
-                                Add Permission
+                                Update Permission
                             </p>
                             <form class="forms-sample">
                                 <div class="form-group">
                                     <label for="name">权限名</label>
-                                    <input type="text" class="form-control" id="name" value="{{ $res->name }}">
+                                    <input type="text" class="form-control" id="name" value="{{ $permission->name }}">
                                 </div>
-
 
                                 <div class="form-group" style="width: 100%;height: 200px;">
                                     <select class="form-control" id="selectL" name="selectL" multiple="multiple" style="width:40%;height:200px;float: left">
-                                        @foreach($left_arr as $k=>$v)
-                                            <option value="{{$v}}">{{$v}}</option>
+                                        @foreach($uncheck_routes as $route)
+                                            <option value="{{$route->uri}}">{{$route->uri}}</option>
                                         @endforeach
                                     </select>
 
@@ -30,13 +29,13 @@
                                     <button type="button" id="toleft" class="btn btn-gradient-primary btn-sm" style="margin-top: 80px;"> < </button>
 
                                     <select class="form-control" id="selectR" name="selectR" multiple="multiple" style="width:40%;height:200px;float: right">
-                                        @foreach($rignt_arr as $k=>$v)
-                                            <option value="{{$v}}">{{$v}}</option>
+                                        @foreach($check_routes as $route)
+                                            <option value="{{$route->uri}}">{{$route->uri}}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
-                                <button type="button" onclick="commit({{ $res->id }})" class="btn btn-sm btn-gradient-primary btn-icon-text">
+                                <button type="button" onclick="commit({{ $permission->id }})" class="btn btn-sm btn-gradient-primary btn-icon-text">
                                     <i class="mdi mdi-file-check btn-icon-prepend"></i>
                                     提交
                                 </button>
@@ -85,8 +84,11 @@
             rightSel.find("option").each(function(){
                 selVal.push(this.value);
             });
-            selVals = selVal.join(",");
-            if(selVals==""){
+            // selVals = selVal.join(",");
+            // if(selVals==""){
+            //     layer.msg('请选择路由', function(){});
+            // }
+            if (selVal.length === 0) {
                 layer.msg('请选择路由', function(){});
             }
             var name = $("#name").val();
@@ -95,7 +97,7 @@
             }
             var data = {
                 'name':name,
-                'route':selVals,
+                'routes':selVal,
             };
             myRequest("/admin/permission/update/"+id,"post",data,function(res){
                 if(res.code == '200'){
