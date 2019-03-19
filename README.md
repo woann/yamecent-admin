@@ -18,16 +18,8 @@ yamecent-admin是一款基于laravel框架进行封装的后台管理系统,其�
 * 持续维护中...
 
 
-## 安装教程 （原版）
-* 执行安装命令 `composer create-project woann/yamecent-admin` 或者`git clone https://github.com/woann/yamecent-admin.git` 
-* 配置域名(按laravel项目正常配置即可,解析到public目录)
-* 如发现权限相关问题 执行 chown -R 用户名:用户组 项目目录
-* 访问域名,登录即可进入管理系统
-* 首次访问域名时会跳转至安装页面![安装页面.jpg](https://upload-images.jianshu.io/upload_images/14769055-a5c3bae19726a891.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-* 填写完数据表配置之后，点击安装即可（有点小慢，喝口水）
-* 安装完之后就可以使用刚刚提交的管理员账号密码登录了（如果您想重新安装，要将/app/install/install.lock 文件删掉，重新访问网址即可）
 
-## 安装教程 （改进版本）
+## 安装教程
 * 克隆代码库`git clone https://github.com/tksmai/yamecent-admin.git` 
 * 执行命令 `composer install && composer run-script post-root-package-install && composer run-script post-create-project-cmd` 安装 laravel 框架，依赖库，并做配置文件初始化
 * 配置域名(按laravel项目正常配置即可,解析到public目录)
@@ -180,5 +172,5 @@ if(!check){
 ![角色](https://upload-images.jianshu.io/upload_images/9160823-f75c5aa058bf7e77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-作者 [@woann][1]  [@xjj][2]   
+作者 [@woann][1]  [@xjj][2]   [@tksmai][3]
 2018 年 10月 30日    
