@@ -73,10 +73,10 @@ Route::group([
     $route->get('edit/info/{id}', 'Admin\AdministratorController@editInfoView');
     $route->post('edit/info/{id}', 'Admin\AdministratorController@editInfo');
     //图片上传
-    $route->post('upload', 'Admin\IndexController@upload');
+    $route->post('admin/upload', 'Admin\IndexController@upload');
+    $route->post('admin/wangeditor/upload', 'Admin\IndexController@wangeditorUpload');
     //退出登录
     $route->get('logout', 'Admin\AdministratorController@logout');
-    $route->post('wangeditor/upload', 'Admin\IndexController@wangeditorUpload');
 });
 Route::group([
     'middleware' => ['install.check'],

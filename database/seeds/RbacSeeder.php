@@ -3,8 +3,10 @@
 use App\AdminPermission;
 use App\AdminRole;
 use App\AdminUser;
+use App\Utility\Rbac;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
 
 class RbacSeeder extends Seeder
 {
@@ -33,13 +35,9 @@ class RbacSeeder extends Seeder
 
         $adminUser->roles()->save($adminRole);
 
-        $routes = (new Collection(app()->routes->getRoutes()))
-            ->filter(function ($route) {
-                $actions = $route->getAction();
-                return isset($actions['as']) && $actions['as'] === 'rbac';
-            })
+        $routes = Rbac::getAllRoutes()
             ->map(function ($route) {
-                return $route->uri;
+                return $route->rbacRule;
             });
         $adminPerm = new AdminPermission();
         $adminPerm->fill([

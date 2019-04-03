@@ -21,7 +21,7 @@
                                 <div class="form-group" style="width: 100%;height: 200px;">
                                     <select class="form-control" id="selectL" name="selectL" multiple="multiple" style="width:40%;height:200px;float: left">
                                         @foreach($uncheck_routes as $route)
-                                            <option value="{{$route->uri}}">{{$route->uri}}</option>
+                                            <option value="{{$route->rbacRule}}">{{$route->rbacRule}}</option>
                                         @endforeach
                                     </select>
 
@@ -30,7 +30,7 @@
 
                                     <select class="form-control" id="selectR" name="selectR" multiple="multiple" style="width:40%;height:200px;float: right">
                                         @foreach($check_routes as $route)
-                                            <option value="{{$route->uri}}">{{$route->uri}}</option>
+                                            <option value="{{$route->rbacRule}}">{{$route->rbacRule}}</option>
                                         @endforeach
                                     </select>
                                 </div>

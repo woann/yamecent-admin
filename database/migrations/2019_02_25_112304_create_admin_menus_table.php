@@ -18,7 +18,7 @@ class CreateAdminMenusTable extends Migration
             $table->integer('pid')->default(0);
             $table->string('name', 50);
             $table->string('url', 50);
-            $table->string('icon', 50);
+            $table->string('icon', 50)->nullable();
             $table->integer('sort', 0)->comment('权重');
             $table->timestamps();
         });
