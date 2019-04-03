@@ -173,57 +173,62 @@
             <i class="mdi mdi-home menu-icon"></i>
           </a>
         </li>
-        @if(session('admin')->id == 1 )
+        @if(session('admin')->hasSuperRole())
         <li class="nav-item">
           <a class="nav-link" target="main" href="/admin/config/list">
             <span class="menu-title">配置项</span>
             <i class="mdi mdi-settings-box menu-icon"></i>
           </a>
         </li>
-          @endif
+        @endif
         @foreach($menu as $k=>$v)
           @if($v->hasChild)
-                  <li class="nav-item">
-                      <a class="nav-link" data-toggle="collapse" href="#system-pages-{{$v->id}}" aria-expanded="false" aria-controls="general-pages">
-                          <span class="menu-title">{{ $v->name }}</span>
-                          <i class="menu-arrow"></i>
-                          <i class="{{ $v->icon }} menu-icon"></i>
-                      </a>
-                      <div class="collapse" id="system-pages-{{$v->id}}">
-                          <ul class="nav flex-column sub-menu">
-                              @foreach($v->children as $key=>$val)
-                              <li class="nav-item"> <a class="nav-link" target="main" href="{{ $val->url }}">{{ $val->name }}</a></li>
-                              @endforeach
-                          </ul>
-                      </div>
-                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#system-pages-{{$v->id}}" aria-expanded="false" aria-controls="general-pages">
+                        <span class="menu-title">{{ $v->name }}</span>
+                        <i class="menu-arrow"></i>
+                        <i class="{{ $v->icon }} menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="system-pages-{{$v->id}}">
+                        <ul class="nav flex-column sub-menu">
+                            @foreach($v->children as $key=>$val)
+                            <li class="nav-item"> <a class="nav-link" target="main" href="{{ $val->url }}">{{ $val->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </li>
           @else
-                  <li class="nav-item">
-                      <a class="nav-link" target="main" href="{{ $v->url }}">
-                          <span class="menu-title">{{ $v->name }}</span>
-                          <i class="{{ $v->icon }} menu-icon"></i>
-                      </a>
-                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="main" href="{{ $v->url }}">
+                        <span class="menu-title">{{ $v->name }}</span>
+                        <i class="{{ $v->icon }} menu-icon"></i>
+                    </a>
+                </li>
           @endif
-
         @endforeach
-          @if(session('admin')->id == 1 )
-          <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#system-pages" aria-expanded="false" aria-controls="general-pages">
-            <span class="menu-title">系统设置</span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-settings menu-icon"></i>
-          </a>
-          <div class="collapse" id="system-pages">
+        @if(session('admin')->hasSuperRole())
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                data-toggle="collapse"
+                href="#system-pages"
+                aria-expanded="false"
+                aria-controls="general-pages"
+            >
+                <span class="menu-title">系统设置</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-settings menu-icon"></i>
+            </a>
+            <div class="collapse" id="system-pages">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" target="main" href="/admin/menu/list">菜单</a></li>
-              <li class="nav-item"> <a class="nav-link" target="main" href="/admin/permission/list">权限</a></li>
-              <li class="nav-item"> <a class="nav-link" target="main" href="/admin/role/list">角色</a></li>
-              <li class="nav-item"> <a class="nav-link" target="main" href="/admin/administrator/list">管理员</a></li>
+                <li class="nav-item"> <a class="nav-link" target="main" href="/admin/menu/list">菜单</a></li>
+                <li class="nav-item"> <a class="nav-link" target="main" href="/admin/permission/list">权限</a></li>
+                <li class="nav-item"> <a class="nav-link" target="main" href="/admin/role/list">角色</a></li>
+                <li class="nav-item"> <a class="nav-link" target="main" href="/admin/administrator/list">管理员</a></li>
             </ul>
-          </div>
+            </div>
         </li>
-          @endif
+        @endif
 
         {{--<li class="nav-item sidebar-actions">--}}
         {{--<span class="nav-link">--}}

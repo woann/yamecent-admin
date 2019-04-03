@@ -25,7 +25,8 @@ class Rbac
         }
         //通过角色获取当前管理员所有权限
         $permissionRoutes = $admin->getPermissionRoutes();
-        if ($permissionRoutes->contains(Route::current()->uri) === false) {
+        $currentRule      = Route::current()->methods[0] . ':' . Route::current()->uri;
+        if ($permissionRoutes->contains($currentRule) === false) {
             return redirect('403');
         }
         //判断当前路由是否属于该管理员的权限

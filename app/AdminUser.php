@@ -3,6 +3,7 @@
 namespace App;
 
 use App\AdminRole;
+use App\Utility\Rbac;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -21,19 +22,12 @@ class AdminUser extends Model
 
     public function getMenus()
     {
-        $roles        = $this->roles;
-        $hasSuperRole = false;
-        $roles->each(function ($role) use (&$hasSuperRole) {
-            if ($role->id === 1) {
-                $hasSuperRole = true;
-                return false;
-            }
-        }, $roles);
+        $roles           = $this->roles;
         $dealTopMenuFunc = function ($topMenu) {
             $topMenu->hasChild = $topMenu->children->isNotEmpty();
             return $topMenu;
         };
-        if ($hasSuperRole) {
+        if ($this->hasSuperRole()) {
             $menus = AdminMenu::where('pid', 0)
                 ->get()
                 ->map($dealTopMenuFunc);
@@ -51,15 +45,10 @@ class AdminUser extends Model
     public function getPermissionRoutes()
     {
         if ($this->hasSuperRole()) {
-            $permissions = (new Collection(Container::getInstance()->routes->getRoutes()))
-                ->filter(function ($route) {
-                    $actions = $route->getAction();
-                    return isset($actions['as']) && $actions['as'] === 'rbac';
-                })
+            $permissions = Rbac::getAllRoutes()
                 ->map(function ($route) {
-                    return $route->uri;
+                    return $route->rbacRule;
                 });
-
         } else {
             $permissions = $this->roles->map(function ($role) {
                 return $role->permissions;
@@ -96,6 +85,11 @@ class AdminUser extends Model
         return $this->where('id', '!=', $this->id)
             ->where('account', $account)
             ->count() > 0;
+    }
+
+    public function getAvatarAttribute($avatar): string
+    {
+        return $avatar ?? '/uploads/avatar/20181031/5bd90252493d1.jpg';
     }
 
     protected function setPasswordAttribute($value)

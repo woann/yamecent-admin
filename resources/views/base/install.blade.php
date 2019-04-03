@@ -49,7 +49,7 @@
                                 <input type="text" class="form-control form-control-lg" name="mysqlHost" placeholder="Mysql 数据库地址" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" name="mysqlDatabase" placeholder="Mysql 数据库名" >
+                                <input type="text" class="form-control form-control-lg" name="mysqlDatabase" placeholder="请输入已存在的 Mysql 数据库名" >
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" name="mysqlUsername" placeholder="Mysql 用户名" >

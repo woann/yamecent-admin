@@ -12,6 +12,7 @@ use App\AdminPermission;
 use App\AdminRole;
 use App\AdminUser;
 use App\Http\Controllers\Controller;
+use App\Utility\Rbac;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -236,13 +237,8 @@ class AdministratorController extends Controller
     public function permissionAddView(Request $request)
     {
         //渲染页面
-        $routes = new Collection(app()->routes->getRoutes());
-        return view('admin.permission_add', [
-            'routes' => $routes->filter(function ($route) {
-                $actions = $route->getAction();
-                return isset($actions['as']) && $actions['as'] === 'rbac';
-            }),
-        ]);
+        $routes = Rbac::getAllRoutes();
+        return view('admin.permission_add', ['routes' => $routes]);
     }
 
     public function permissionAdd(Request $request)
@@ -262,22 +258,18 @@ class AdministratorController extends Controller
      */
     public function permissionUpdateView(Request $request, $id)
     {
-        $permission = AdminPermission::findOrFail($id);
-        $routes     = new Collection(app()->routes->getRoutes());
-        $rbacRoutes = $routes->filter(function ($route) {
-            $actions = $route->getAction();
-            return isset($actions['as']) && $actions['as'] === 'rbac';
-        });
+        $permission  = AdminPermission::findOrFail($id);
+        $rbacRoutes  = Rbac::getAllRoutes();
         $checkRoutes = $permission->routes->map(function ($route) {
-            $routeObj      = new \StdClass();
-            $routeObj->uri = $route;
+            $routeObj           = new \StdClass();
+            $routeObj->rbacRule = $route;
             return $routeObj;
         });
         $uncheckRoutes = new Collection();
         $rbacRoutes->each(function ($route) use ($permission, $checkRoutes, &$uncheckRoutes) {
             $uncheckFlag = true;
             $checkRoutes->each(function ($checkRoute) use ($route, &$uncheckFlag) {
-                if ($route->uri === $checkRoute->uri) {
+                if ($route->rbacRule === $checkRoute->rbacRule) {
                     $uncheckFlag = false;
                 }
             });
